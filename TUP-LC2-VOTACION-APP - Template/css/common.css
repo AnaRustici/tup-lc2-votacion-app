@@ -11,3 +11,12 @@ body {
   background-color: rgb(240, 240, 240);
 }
 
+.logo{
+  width: 200px;
+  height: 51px;
+}
+
+.header-page{
+
+  background-color: rgb(151, 153, 255);
+}
