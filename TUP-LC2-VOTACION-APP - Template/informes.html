@@ -8,6 +8,16 @@
     <link rel="shortcut icon" type="image/png" href="favicon-16x16.png">
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/pages/informes.css">
+    <style>
+        .scrollable-table {
+
+            max-height: 300px;
+
+            overflow-y: auto;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -20,10 +30,13 @@
         </div>
         </div>
         <!--Barra de menú principal-->
-        <ul>
-            <li><a class="active" href="#informes">Informes</a></li>
-            <li><a href="#contact">Contacto</a></li>
-        </ul>
+        <nav class="menu">
+            <ul>
+                <li><a href="paso.html">PASO</a></li>
+                <li><a href="generales.html">GENERALES</a></li>
+                <li><a href="index.html">INICIO</a></li>
+            </ul>
+        </nav>
     </header>
     <!-- Contenido principal de la página -->
     <main>
@@ -35,6 +48,25 @@
         </section>
         <section id="sec-contenido">
             <!--Seccion para contenido de la página-->
+            <section id="sec-grilla" class="scrollable-table">
+                <table>
+                    <thead>
+            
+                        <tr>
+            
+                            <th>PROVINCIA</th>
+            
+                            <th>ELECCIÓN</th>
+            
+                            <th>DATOS GENERALES</th>
+            
+                            <th>DATOS POR AGRUPACIÓN</th>
+            
+                        </tr>
+            
+                    </thead>
+                </table>
+            </section>
         </section>
     </main>
     <!--Pie de página-->
