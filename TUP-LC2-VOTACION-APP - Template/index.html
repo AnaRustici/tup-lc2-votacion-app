@@ -8,6 +8,8 @@
     <link rel="shortcut icon" type="image/png" href="img/icons/favicon-16x16.png">
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -17,9 +19,11 @@
             <img src="img/Logo_DINE_negativo.png" alt="logo" class="logo">
         </div>
         <!--Barra de menú principal-->
-        <ul>
-            <li><a class="active" href="informes.html">Informes</a></li>
-        </ul>
+        <div>
+            <button>
+                <a class="active" href="informes.html">Informes</a>
+            </button>
+        </div>
     </header>
     <!-- Contenido principal de la página -->
     <main>
@@ -41,8 +45,8 @@
             <h3>Elecciones 2021</h3>
             <p>Resultados Provisorios</p>
             <div>
-                <a href="paso.html">
-                    <div style="background-color: blue;">
+                <button>
+                    <a href="paso.html">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="841.889px"
                             height="595.281px" viewBox="0 0 841.889 595.281" enable-background="new 0 0 841.889 595.281"
@@ -60,12 +64,11 @@
                                 </path>
                             </g>
                         </svg>
-
-                    </div>
-                    PASO
-                </a>
-                <a href="generales.html">
-                    <div style="background-color: blue;">
+                        PASO
+                    </a>
+                </button>
+                <button>
+                    <a href="generales.html">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="841.889px"
                             height="595.281px" viewBox="0 0 841.889 595.281" enable-background="new 0 0 841.889 595.281"
@@ -83,16 +86,35 @@
                                 </path>
                             </g>
                         </svg>
-
-                    </div>
-                    Generales
-                </a>
+                        Generales
+                    </a>
+                </button>
             </div>
         </section>
     </main>
     <!--Pie de página-->
     <footer>
-        <p>Desarrollado con ♥ - LC2</p>
+        <div class="img-footer">
+            <div>
+                <img src="img/icons/Ministerio-del-Interior_pluma.1ab9a7a7.png" alt="icono-ministerio" class="iconos-img-footer">
+            </div>
+            <div>
+                <img src="img/Logo_DINE_negativo.png" alt="logo-footer" class="iconos-img-footer">
+            </div>
+            <div>
+                <img src="img/icons/logos_001-10.4430c8d5.png" alt="iconos-logos" class="iconos-img-footer">
+            </div>
+        </div>
+        
+        <div class="texto-footer">
+            <p>
+                Resultados Provisorios en base a telegramas recibidos (Art. 43 Ley 26571 y Art. 105 Ley 19945). Los
+                porcentajes de las agrupaciones políticas son calculados sobre los votos válidos (PASO) conforme al art.
+                45 Ley 26.571 y afirmativos (Generales). No se incluyen los votos correspondientes a los electores
+                residentes en el exterior ni privados de la libertad. Al usar este sitio usted acepta los <a>Términos y Condiciones</a>.
+            </p>
+        </div>
+        
     </footer>
 
 </html>
