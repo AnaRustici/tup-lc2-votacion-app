@@ -1,0 +1,17 @@
+
+ul {
+    display: flex;
+    justify-content: flex-end;
+}
+
+ul li {
+    border: solid black;
+}
+
+.scrollable-table {
+
+    max-height: 300px;
+
+    overflow-y: auto;
+
+}

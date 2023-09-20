@@ -5,19 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema de Publicación de Resultados Electorales</title>
-    <link rel="shortcut icon" type="image/png" href="favicon-16x16.png">
+    <link rel="shortcut icon" type="image/png" href="img/icons/favicon-16x16.png">
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/pages/informes.css">
-    <style>
-        .scrollable-table {
-
-            max-height: 300px;
-
-            overflow-y: auto;
-
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -28,14 +21,17 @@
                 <img src="img/Logo_DINE_negativo.png" alt="logo" class="logo">
             </a>
         </div>
-        </div>
         <!--Barra de menú principal-->
         <nav class="menu">
-            <ul>
-                <li><a href="paso.html">PASO</a></li>
-                <li><a href="generales.html">GENERALES</a></li>
-                <li><a href="index.html">INICIO</a></li>
-            </ul>
+            <button>
+                <a class="active" href="paso.html">PASO</a>
+            </button>
+            <button>
+                <a class="active" href="generales.html">GENERALES</a>
+            </button>
+            <button>
+                <a class="active" href="index.html">INICIO</a>
+            </button>
         </nav>
     </header>
     <!-- Contenido principal de la página -->
@@ -44,6 +40,11 @@
             <!--Seccion para agregar una palicula favorita por codigo-->
             <h2>Reporte de Elecciones</h2>
             <br><br>
+        </section>
+        <section id="sec-messages">
+            <p>Se agregó con éxito el resultado al informe</p>
+            <p>Error: Se produjo un error al intentar agregar resultados al informe</p>
+            <p>La operación no se pudo completar</p>
         </section>
         <section id="sec-contenido">
             <!--Seccion para contenido de la página-->
@@ -677,6 +678,20 @@
     </main>
     <!--Pie de página-->
     <footer>
-        <p>Desarrollado con ♥ - LC2</p>
+        <div class="img-footer">
+            <img src="img/icons/Ministerio-del-Interior_pluma.1ab9a7a7.png" alt="icono-ministerio" class="iconos-img-footer">
+            <img src="img/Logo_DINE_negativo.png" alt="logo-footer" class="iconos-img-footer">
+            <img src="img/icons/logos_001-10.4430c8d5.png" alt="iconos-logos" class="iconos-img-footer">
+        </div>
+
+        <div class="texto-footer">
+            <p>
+                Resultados Provisorios en base a telegramas recibidos (Art. 43 Ley 26571 y Art. 105 Ley 19945). Los
+                porcentajes de las agrupaciones políticas son calculados sobre los votos válidos (PASO) conforme al art.
+                45 Ley 26.571 y afirmativos (Generales). No se incluyen los votos correspondientes a los electores
+                residentes en el exterior ni privados de la libertad. Al usar este sitio usted acepta los <a href="terminos-y-cond.html">Términos y
+                Condiciones</a>.
+            </p>
+        </div>
     </footer>
 </body>

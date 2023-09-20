@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="img/icons/favicon-16x16.png">
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/pages/index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -19,11 +20,11 @@
             <img src="img/Logo_DINE_negativo.png" alt="logo" class="logo">
         </div>
         <!--Barra de menú principal-->
-        <div>
+        <nav>
             <button>
                 <a class="active" href="informes.html">Informes</a>
             </button>
-        </div>
+        </nav>
     </header>
     <!-- Contenido principal de la página -->
     <main>
@@ -40,6 +41,11 @@
             <div>
                 <img src="img/images.png" alt="img-data" class="img-data">
             </div>
+        </section>
+        <section id="sec-messages">
+            <p>Se agregó con éxito el resultado al informe</p>
+            <p>Error: Se produjo un error al intentar agregar resultados al informe</p>
+            <p>La operación no se pudo completar</p>
         </section>
         <section id="sec-contenido">
             <h3>Elecciones 2021</h3>
@@ -95,16 +101,9 @@
     <!--Pie de página-->
     <footer>
         <div class="img-footer">
-            <div>
-                <img src="img/icons/Ministerio-del-Interior_pluma.1ab9a7a7.png" alt="icono-ministerio"
-                    class="iconos-img-footer">
-            </div>
-            <div>
-                <img src="img/Logo_DINE_negativo.png" alt="logo-footer" class="iconos-img-footer">
-            </div>
-            <div>
-                <img src="img/icons/logos_001-10.4430c8d5.png" alt="iconos-logos" class="iconos-img-footer">
-            </div>
+            <img src="img/icons/Ministerio-del-Interior_pluma.1ab9a7a7.png" alt="icono-ministerio" class="iconos-img-footer">
+            <img src="img/Logo_DINE_negativo.png" alt="logo-footer" class="iconos-img-footer">
+            <img src="img/icons/logos_001-10.4430c8d5.png" alt="iconos-logos" class="iconos-img-footer">
         </div>
 
         <div class="texto-footer">
@@ -112,8 +111,8 @@
                 Resultados Provisorios en base a telegramas recibidos (Art. 43 Ley 26571 y Art. 105 Ley 19945). Los
                 porcentajes de las agrupaciones políticas son calculados sobre los votos válidos (PASO) conforme al art.
                 45 Ley 26.571 y afirmativos (Generales). No se incluyen los votos correspondientes a los electores
-                residentes en el exterior ni privados de la libertad. Al usar este sitio usted acepta los <a>Términos y
-                    Condiciones</a>.
+                residentes en el exterior ni privados de la libertad. Al usar este sitio usted acepta los <a href="terminos-y-cond.html">Términos y
+                Condiciones</a>.
             </p>
         </div>
 
