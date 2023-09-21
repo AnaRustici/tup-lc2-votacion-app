@@ -101,8 +101,14 @@ nav div input::placeholder {
 }
 
 /*recuadros informativos*/
+
+main{
+    margin-left: 50px;
+}
+
 .primer-div {
     display: flex;
+    justify-content: space-between;
 }
 
 .primer-div div button {
@@ -119,33 +125,46 @@ nav div input::placeholder {
     background-color: var(--celeste);
     border-radius: 10px;
     margin: 15px;
-    height: 184px;
-    width: 70px;
+    height: 90px;
+    width: 200px;
     padding: 0.5rem 1rem;
     color: #FFF;
     font-size: 12px;
+    margin-right: 20px;
 }
 
 #electores {
     background-color: var(--magenta);
     border-radius: 10px;
     margin: 15px;
-    height: 184px;
-    width: 70px;
+    height: 90px;
+    width: 200px;
     padding: 0.5rem 1rem;
     color: #FFF;
     font-size: 12px;
+    margin-right: 20px;
 }
 
 #part-escrutado {
     background-color: var(--morado);
     border-radius: 10px;
     margin: 15px;
-    height: 184px;
-    width: 70px;
+    height: 90px;
+    width: 200px;
     padding: 0.5rem 1rem;
     color: #FFF;
     font-size: 12px;
+    margin-right: 50px;
+}
+
+#agregar-informe{
+    margin-left: 40px;
+    margin-top: 50px;
+    padding: 18px;
+    border-radius: 5px;
+    background-color: var(--borde-Grilla);
+    border: none;
+    color: white;
 }
 
 .cuadros-detalle {

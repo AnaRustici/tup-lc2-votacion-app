@@ -35,6 +35,8 @@
     padding: 1rem;
     color: #FFF;
     font-size: 28px;
+    border: none;
+    font-weight: bold;
 }
 .generales-button a {
     display: flex;
@@ -54,6 +56,8 @@
     padding: 1rem;
     color: #FFF;
     font-size: 28px;
+    border: none;
+    font-weight: bold;
 }
 .paso-button a {
     display: flex;
