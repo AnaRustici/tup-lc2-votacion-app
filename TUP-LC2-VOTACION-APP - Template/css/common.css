@@ -142,34 +142,4 @@ a{
   color: #FFF;
 }
 
-.buttons{
-  text-align: center;
-}
 
-#sec-messages {
-  /*display: none;*/
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-#sec-messages p {
-  width: 400px;
-  margin: 20px auto;
-  padding: 15px;
-  border-radius: 10px;
-  color: #FFffFF;
-  font-size: 12px;
-  text-align: center;
-  font-weight: 200;
-}
-
-#texto-verde {
-  background-color: var(--mensaje-usuario-verde);
-}
-#texto-rojo {
-  background-color: var(--mensaje-usuario-rojo);
-}
-#texto-amarillo {
-  background-color: var(--mensaje-usuario-amarillo);
-}
