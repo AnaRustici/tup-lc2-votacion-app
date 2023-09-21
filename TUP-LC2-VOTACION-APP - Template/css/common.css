@@ -162,8 +162,13 @@ footer .texto-footer p {
   font-size: 28px;
 }
 
+a{
+  text-decoration: none;
+  color: #FFF;
+}
 .buttons{
   text-align: center;
+  text-decoration: none;
 }
 
 .paso-button:hover{
