@@ -1,0 +1,29 @@
+#sec-titulo{
+    margin-left: 40px;
+    margin-top: 15px;
+    
+}
+
+#sec-titulo h1{
+    font-size: 50px;
+    margin-top: 17px;
+    
+    
+}
+
+#sec-titulo p{
+    width: 40%;
+    margin-right: 0px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#sec-titulo div{
+    display: inline-block;
+    width: 45%;
+}
+
+#sec-titulo div img{
+    width: 400px;
+    height: 400px;
+}
