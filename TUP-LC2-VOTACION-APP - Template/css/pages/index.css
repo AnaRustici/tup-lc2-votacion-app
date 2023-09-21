@@ -22,6 +22,10 @@
     width: 350px;
 }
 
+.buttons{
+    text-align: center;
+}
+
 .generales-button{
     background-color: var(--celeste);
     border-radius: 10px;
