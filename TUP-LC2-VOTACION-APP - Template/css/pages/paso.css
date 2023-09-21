@@ -182,25 +182,37 @@ main{
 
 #agrup-politicas {
     overflow-y: scroll;
-    height: 325px;
-    border-radius: 25px;
+    width: 33%;
+    border-radius: 5px;
     border: 1px;
     border: var(--borde-Grilla) solid;
+    margin-right: 10px;
+    height: 25%;
+    padding: 15px 15px;
+    margin-bottom: 15px;
 }
 
 #mapa {
-    border-radius: 25px;
+    border-radius: 5px;
     border: 1px;
     border: var(--borde-Grilla) solid;
+    width: 30%;
+    margin-bottom: 15px;
 }
 #mapa svg {
     display: inline-block;
+    height: 339px;
 }
 
+
+
 #grafica {
-    border-radius: 25px;
+    margin-left: 10px;
+    border-radius: 5px;
     border: 1px;
     border: var(--borde-Grilla) solid;
+    width: 30%;
+    margin-bottom: 15px;
 }
 
 
