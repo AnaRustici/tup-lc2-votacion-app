@@ -137,45 +137,39 @@ footer .texto-footer p {
   margin-right: 60px;
 }
 
-.generales-button{
-  background-color: var(--celeste);
-  border-radius: 10px;
-  margin: 25px;
-  height: 100px;
-  width: 400px;
-  padding: 1rem;
-  color: #FFF;
-  font-size: 28px;
-}
 a{
   text-decoration: none;
   color: #FFF;
-}
-.generales-button:hover{
-  background-color: var(--gris-claro);
-}
-
-.paso-button{
-  background-color: var(--magenta);
-  border-radius: 10px;
-  margin: 25px;
-  height: 100px;
-  width: 400px;
-  padding: 1rem;
-  color: #FFF;
-  font-size: 28px;
 }
 
 .buttons{
   text-align: center;
 }
 
-.paso-button:hover{
-  background-color: var(--gris-claro);
+#sec-messages {
+  /*display: none;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#sec-messages p {
+  width: 400px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+  color: #FFffFF;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 200;
 }
 
-
-.img-data{
-  margin: 15px;
-  width: 350px;
+#texto-verde {
+  background-color: var(--mensaje-usuario-verde);
+}
+#texto-rojo {
+  background-color: var(--mensaje-usuario-rojo);
+}
+#texto-amarillo {
+  background-color: var(--mensaje-usuario-amarillo);
 }
