@@ -71,6 +71,7 @@ h3 {
   background-color: var(--fondo-Cabecera);
   color: white;
   margin-top: 0;
+  /*width: 90%; si se agrega como dice en el pdf no ocupa el ancho completo de la pantalla*/ 
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
@@ -79,12 +80,36 @@ h3 {
 header nav {
   /*margin-left: 13px;
   margin-right: 13px;*/
-  padding-top: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 10px;
   background-color: var(--fondo-Menu);
+  
 }
 
+header nav button{
+  
+  border-radius: 12px;
+  padding: 3px;
+  background-color: var(--fondo-Menu);
+  border: solid;
+  border-color: white;
+  border-width: 0.1px;
+  width: 90px;
+  margin-right: 50px;
+  
+  
+}
+
+header nav button a{
+  text-decoration: none;
+  background-color: var(--fondo-Menu);
+  color: white;
+  font-size: 11px;
+}
 .logo {
   width: 150px;
+  margin-left: 35px;
 }
 
 footer {

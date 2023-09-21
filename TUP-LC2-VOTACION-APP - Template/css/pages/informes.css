@@ -1,4 +1,15 @@
 
+.menu {
+    display: flex;
+    
+}
+
+.menu p{
+    color: white;
+    margin: 0px;
+    margin-top: 4px;
+}
+
 ul {
     display: flex;
     justify-content: flex-end;
