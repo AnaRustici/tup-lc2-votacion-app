@@ -1,0 +1,48 @@
+header nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+button #boton-inicio {
+    float: right;
+}
+
+nav div{
+    display: flex;  
+
+}
+
+nav div select{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.seleccionable-diputado-senadores{
+    width: 10px;
+    padding-left: 19px;
+    background-color: var(--fondo-Menu);
+    color: white;
+    border: none;
+    margin-left: 5px;
+}
+
+label{
+    color: white;
+    font-size: 15px;
+}
+
+#seleccionable-año{
+    margin-left: 50px;
+
+}
+
+nav div input{
+    margin-right: 20px;
+    border-radius: 5px;
+
+}
+
+nav div input::placeholder{
+    text-align: center;
+
+}

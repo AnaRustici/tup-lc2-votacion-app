@@ -23,24 +23,37 @@
         </div>
         <!--Barra de menú principal-->
         <nav>
-            <select name="seleccionable" id="seleccionable">
-                <option value="Año" selected>Año</option>
-            </select>
-            <select name="seleccionable" id="seleccionable">
-                <option value="Cargo" selected>Cargo</option>
-            </select>
-            <select name="seleccionable" id="seleccionable">
-                <option value="Distrito" selected>Distrito</option>
-            </select>
-            <button>
-                Filtrar
-            </button>
-            <button>
-                <a class="active" href="paso.html">PASO</a>
-            </button>
-            <button>
-                <a class="active" href="informes.html">Informes</a>
-            </button>
+            <div>
+                <label for="" id="seleccionable-año">Año</label>
+                <select name="seleccionable" class="seleccionable-diputado-senadores">
+                    <option value="2020" selected>2020</option>
+                    <option value="2021" selected>2021</option>
+                    <option value="2022" selected>2022</option>
+                    <option value="2023" selected>2023</option>
+                </select>
+                
+                <label for="">Cargo</label>
+                <select name="seleccionable" class="seleccionable-diputado-senadores">
+                    <option value="Presidente">Presidente</option>
+                    <option value="Gobernador" selected>Gobernador</option>
+                    <option value="Intendente" selected>Intendente</option>
+                    <option value="Diputados y Senadores" selected>Diputados y Senadores</option>
+                </select>
+                
+                <label for="">Distrito</label>
+                <select name="seleccionable" class="seleccionable-diputado-senadores">
+                    <option value="Sur" selected>Sur</option>
+                    <option value="Oeste" selected>Oeste</option>
+                    <option value="Centro" selected>Centro</option>
+                    <option value="Norte" selected>Norte</option>
+                </select>
+                <div>
+                    <input type="text" placeholder="FILTRAR">
+                </div>
+                <button>
+                    <a class="active" href="informes.html">INFORMES</a>
+                </button>
+            </div>
             <button id="boton-inicio">
                 <a class="active" href="index.html">INICIO</a>
             </button>

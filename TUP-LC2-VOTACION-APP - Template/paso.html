@@ -24,24 +24,37 @@
         </div>
         <!--Barra de menú principal-->
         <nav>
-            <select name="seleccionable" id="seleccionable">
-                <option value="Año" selected>Año</option>
-            </select>
-            <select name="seleccionable" id="seleccionable">
-                <option value="Cargo" selected>Cargo</option>
-            </select>
-            <select name="seleccionable" id="seleccionable">
-                <option value="Distrito" selected>Distrito</option>
-            </select>
-            <button>
-                Filtrar
-            </button>
-            <button>
-                <a class="active" href="generales.html">Generales</a>
-            </button>
-            <button>
-                <a class="active" href="informes.html">Informes</a>
-            </button>
+            <div>
+                <label for="" id="seleccionable-año">Año</label>
+                <select name="seleccionable" class="seleccionable-diputado-senadores">
+                    <option value="2020" selected>2020</option>
+                    <option value="2021" selected>2021</option>
+                    <option value="2022" selected>2022</option>
+                    <option value="2023" selected>2023</option>
+                </select>
+                
+                <label for="">Cargo</label>
+                <select name="seleccionable" class="seleccionable-diputado-senadores">
+                    <option value="Presidente">Presidente</option>
+                    <option value="Gobernador" selected>Gobernador</option>
+                    <option value="Intendente" selected>Intendente</option>
+                    <option value="Diputados y Senadores" selected>Diputados y Senadores</option>
+                </select>
+                
+                <label for="">Distrito</label>
+                <select name="seleccionable" class="seleccionable-diputado-senadores">
+                    <option value="Sur" selected>Sur</option>
+                    <option value="Oeste" selected>Oeste</option>
+                    <option value="Centro" selected>Centro</option>
+                    <option value="Norte" selected>Norte</option>
+                </select>
+                <div>
+                    <input type="text" placeholder="FILTRAR">
+                </div>
+                <button>
+                    <a class="active" href="informes.html">INFORMES</a>
+                </button>
+            </div>
             <button id="boton-inicio">
                 <a class="active" href="index.html">INICIO</a>
             </button>
@@ -244,7 +257,8 @@
     <!--Pie de página-->
     <footer>
         <div class="img-footer">
-            <img src="img/icons/Ministerio-del-Interior_pluma.1ab9a7a7.png" alt="icono-ministerio" class="iconos-img-footer">
+            <img src="img/icons/Ministerio-del-Interior_pluma.1ab9a7a7.png" alt="icono-ministerio"
+                class="iconos-img-footer">
             <img src="img/Logo_DINE_negativo.png" alt="logo-footer" class="iconos-img-footer">
             <img src="img/icons/logos_001-10.4430c8d5.png" alt="iconos-logos" class="iconos-img-footer">
         </div>
@@ -254,8 +268,9 @@
                 Resultados Provisorios en base a telegramas recibidos (Art. 43 Ley 26571 y Art. 105 Ley 19945). Los
                 porcentajes de las agrupaciones políticas son calculados sobre los votos válidos (PASO) conforme al art.
                 45 Ley 26.571 y afirmativos (Generales). No se incluyen los votos correspondientes a los electores
-                residentes en el exterior ni privados de la libertad. Al usar este sitio usted acepta los <a href="terminos-y-cond.html">Términos y
-                Condiciones</a>.
+                residentes en el exterior ni privados de la libertad. Al usar este sitio usted acepta los <a
+                    href="terminos-y-cond.html">Términos y
+                    Condiciones</a>.
             </p>
         </div>
     </footer>
