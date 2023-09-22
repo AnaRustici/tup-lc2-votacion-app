@@ -25,28 +25,28 @@
         <!--Barra de menú principal-->
         <nav>
             <div>
-                <label for="" id="seleccionable-año">Año</label>
-                <select name="seleccionable" class="seleccionable-diputado-senadores">
+                <label for="seleccionable" id="seleccionable-año">Año</label>
+                <select name="seleccionable" class="seleccionable">
                     <option value="2020" selected>2020</option>
                     <option value="2021" selected>2021</option>
                     <option value="2022" selected>2022</option>
                     <option value="2023" selected>2023</option>
                 </select>
 
-                <label for="">Cargo</label>
-                <select name="seleccionable" class="seleccionable-diputado-senadores">
+                <label for="seleccionable">Cargo</label>
+                <select name="seleccionable" class="seleccionable">
                     <option value="Presidente">Presidente</option>
-                    <option value="Gobernador" selected>Gobernador</option>
-                    <option value="Intendente" selected>Intendente</option>
-                    <option value="Diputados y Senadores" selected>Diputados y Senadores</option>
+                    <option value="Gobernador">Gobernador</option>
+                    <option value="Intendente">Intendente</option>
+                    <option value="Diputados y Senadores">Diputados y Senadores</option>
                 </select>
 
-                <label for="">Distrito</label>
-                <select name="seleccionable" class="seleccionable-diputado-senadores">
-                    <option value="Sur" selected>Sur</option>
-                    <option value="Oeste" selected>Oeste</option>
-                    <option value="Centro" selected>Centro</option>
-                    <option value="Norte" selected>Norte</option>
+                <label for="seleccionable">Distrito</label>
+                <select name="seleccionable" class="seleccionable">
+                    <option value="Sur">Sur</option>
+                    <option value="Oeste">Oeste</option>
+                    <option value="Centro">Centro</option>
+                    <option value="Norte">Norte</option>
                 </select>
                 <button class="boton-filtrar">
                     <i class="fa fa-search"></i> FILTRAR
@@ -71,7 +71,7 @@
         <section id="sec-titulo">
             <!--Seccion para agregar una palicula favorita por codigo-->
             <h2>Elecciones 2021 | Paso</h2>
-            <p class="texto-path">2020 > Generales > Provisorio > Senadores Nacionales > Buenos Aires</p>
+            <p class="texto-path">2020 > Paso > Provisorio > Senadores Nacionales > Buenos Aires</p>
         </section>
         <section id="sec-contenido">
             <div class="primer-div">
@@ -274,29 +274,39 @@
             </div>
             <div class="cuadros-detalle">
                 <div id="agrup-politicas">
-                    <div class="title">Agrupaciones Políticas</div>
+                    <div class="title" id="title-agrup-politicas">Agrupaciones Políticas</div>
                     <div class="info-agrupaciones">
                         <div>
-                            <div class="nombre-agrupacion">JUNTOS POR EL CAMBIO</div>
-                            <div>
-                                <div>JUNTOS</div>
+                            <div class="nombre-agrupacion">JUNTOS POR EL CAMBIO<hr></div>
+                            <div class="div-agrupaciones">
+                                <div><b>JUNTOS</b></div>
                                 <div>38% <br>30000 votos</div>
-                                <div class="progress" style="background: var(--grafica-amarillo-claro);">
-                                    <div class="progress-bar" style="width:15%; background: var(--grafica-amarillo);">
-                                        <span class="progress-bar-text">15%</span>
-                                    </div>
+                            </div>
+                            <div class="progress" style="background: var(--grafica-amarillo-claro);">
+                                <div class="progress-bar" style="width:75%; background: var(--grafica-amarillo);">
+                                    <span class="progress-bar-text">75%</span>
                                 </div>
                             </div>
-                            <div>
-                                <div>PJ</div>
+                            <div class="div-agrupaciones">
+                                <div><b>PJ</b></div>
                                 <div>20% <br>12000 votos</div>
+                            </div>
+                            <div class="progress" style="background: var(--grafica-amarillo-claro);">
+                                <div class="progress-bar" style="width:15%; background: var(--grafica-amarillo);">
+                                    <span class="progress-bar-text">15%</span>
+                                </div>
                             </div>
                         </div>
                         <div>
-                            <div class="nombre-agrupacion">ECO + VAMOS CORRIENTES</div>
-                            <div>
-                                <div>VERDE</div>
+                            <div class="nombre-agrupacion">ECO + VAMOS CORRIENTES<hr></div>
+                            <div class="div-agrupaciones">
+                                <div><b>VERDE</b></div>
                                 <div>38% <br>30000 votos</div>
+                            </div>
+                            <div class="progress" style="background: var(--grafica-verde-claro);">
+                                <div class="progress-bar" style="width:75%; background: var(--grafica-verde);">
+                                    <span class="progress-bar-text">75%</span>
+                                </div>
                             </div>
                         </div>
                     </div>

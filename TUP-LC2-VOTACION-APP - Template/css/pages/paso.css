@@ -42,20 +42,19 @@ header nav {
 #boton-inicio {
     border-radius: 5px;
     background-color: var(--gris-claro);
-    padding: 5px;
+    padding: 8px;
     font-size: 10px;
     text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-
 #boton-inicio a {
-    /*background-color: var(--borde-Grilla);
-    color: black;
-    font-weight: bold;
-    font-size: 12px;*/
-    background-color: var(--gris-claro);
     font-size: 10px;
     font: #FFF;
     text-align: center;
+}
+#boton-inicio:hover {
+    background-color: var(--textos);
 }
 
 nav div {
@@ -63,9 +62,19 @@ nav div {
 
 }
 
-nav div button #boton-informes {
-    border-radius: 20px;
+#boton-informes {
+    border-radius: 15px;
+    background-color: var(--fondo-Menu);
+    border: 1px solid;
+    border-color: white;
+    font: #FFF;
+    font-size: 10px;
     height: 28px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#boton-informes:hover {
+    background-color: var(--gris-claro);
 }
 
 .boton-filtrar {
@@ -73,19 +82,24 @@ nav div button #boton-informes {
     border-radius: 15px;
     padding: 5px;
     color: var(--textos);
+    font: #FFF;
     font-size: 10px;
     text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 5px;
 }
 
 nav div select {
     margin-left: 20px;
     margin-right: 20px;
     background-color: transparent;
+    height: 30px;
 }
 
-.seleccionable-diputado-senadores {
+.seleccionable {
     width: 10px;
-    padding-left: 19px;
+    padding-left: 20px;
     background-color: var(--fondo-Menu);
     color: var(--celeste);
     border: none;
@@ -215,10 +229,31 @@ main {
     padding: 15px 15px;
     margin-bottom: 15px;
     height: 325px;
+    overflow-y: scroll;
 }
 
 .info-agrupaciones {
-    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+#title-agrup-politicas {
+    padding-bottom: 20px;
+    padding-top: 15px;
+}
+.div-agrupaciones {
+    display: flex;
+    justify-content: space-between;
+}
+.div-agrupaciones div {
+    font-size: 11px;
+    color: var(--textos);
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+.nombre-agrupacion {
+    font-size: 12px;
+    font-weight: bold;
 }
 
 #mapa {
