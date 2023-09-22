@@ -41,18 +41,21 @@ header nav {
 
 #boton-inicio {
     border-radius: 5px;
-    width: 115px;
-    height: 32px;
-    margin-right: 20px;
-    background-color: var(--borde-Grilla);
-    border: 0px;
+    background-color: var(--gris-claro);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center; 
 }
 
 #boton-inicio a {
-    background-color: var(--borde-Grilla);
+    /*background-color: var(--borde-Grilla);
     color: black;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 12px;*/
+    background-color: var(--gris-claro);
+    font-size: 10px;
+    font: #FFF;
+    text-align: center;
 }
 
 nav div {
@@ -60,28 +63,39 @@ nav div {
 
 }
 
-nav div button {
+nav div button #boton-informes {
     border-radius: 20px;
     height: 28px;
+}
+
+.boton-filtrar {
+    background-color: white;
+    border-radius: 15px;
+    padding: 5px;
+    color: var(--textos);
+    font-size: 10px;
+    text-align: center;
 }
 
 nav div select {
     margin-left: 20px;
     margin-right: 20px;
+    background-color: transparent;
 }
-
 .seleccionable-diputado-senadores {
     width: 10px;
     padding-left: 19px;
     background-color: var(--fondo-Menu);
-    color: white;
+    color: var(--celeste);
     border: none;
     margin-left: 5px;
 }
 
 label {
-    color: white;
-    font-size: 15px;
+    font-size: 14px;
+    background: transparent;
+    color: var(--celeste);
+    font-weight: bold;
 }
 
 #seleccionable-año {
@@ -89,16 +103,6 @@ label {
 
 }
 
-nav div input {
-    margin-right: 20px;
-    border-radius: 18px;
-
-}
-
-nav div input::placeholder {
-    text-align: center;
-
-}
 
 /*recuadros informativos*/
 
@@ -122,39 +126,45 @@ main{
 }
 
 #mesas-escrutadas {
+    display: flex;
     background-color: var(--celeste);
     border-radius: 10px;
     margin: 15px;
-    height: 90px;
-    width: 200px;
+    height: 70px;
+    width: 184px;
     padding: 0.5rem 1rem;
     color: #FFF;
     font-size: 12px;
-    margin-right: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 #electores {
+    display: flex;
     background-color: var(--magenta);
     border-radius: 10px;
     margin: 15px;
-    height: 90px;
-    width: 200px;
+    height: 70px;
+    width: 184px;
     padding: 0.5rem 1rem;
     color: #FFF;
     font-size: 12px;
-    margin-right: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 #part-escrutado {
+    display: flex;
     background-color: var(--morado);
     border-radius: 10px;
     margin: 15px;
-    height: 90px;
-    width: 200px;
+    height: 70px;
+    width: 184px;
     padding: 0.5rem 1rem;
     color: #FFF;
     font-size: 12px;
-    margin-right: 50px;
+    justify-content: center;
+    align-items: center;
 }
 
 #agregar-informe{
