@@ -56,7 +56,9 @@
     font-size: 13px;
 
 }
-
+#boton-generales:hover, #boton-paso:hover {
+    background-color: var(--gris-claro);
+}
 #boton-paso {
     border-radius: 5px;
     width: 115px;
@@ -66,9 +68,8 @@
     border: 0px;
 }
 
-#boton-paso a {
-    background-color: var(--magenta);
-
+#boton-paso a, #boton-generales a {
+    text-decoration: none;
 }
 
 #boton-generales {
@@ -80,42 +81,34 @@
     border: 0px;
 }
 
-#boton-generales a {
-    background-color: var(--fondo-Cabecera);
-
-}
 
 #boton-inicio-menu {
     border-radius: 5px;
-    width: 115px;
-    height: 32px;
-    margin-right: 20px;
-    background-color: var(--borde-Grilla);
-    border: 0px;
+    background-color: var(--gris-claro);
+    padding: 8px;
+    font-size: 10px;
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
 }
-
 #boton-inicio-menu a {
-    background-color: var(--borde-Grilla);
-    color: white;
-    font-weight: bold;
-    font-size: 12px;
+    font-size: 10px;
+    font: #FFF;
+    text-align: center;
+}
+#boton-inicio-menu:hover {
+    background-color: var(--textos);
 }
 
-ul {
-    display: flex;
-    justify-content: flex-end;
-}
 
-ul li {
-    border: solid black;
-}
+
 
 #sec-titulo h2 {
     margin-left: 120px;
 }
 
 /*tabla*/
-table {
+.tabla-informes {
     border: 1px solid var(--borde-Grilla);
     border-radius: 15px;
     width: 1024px;

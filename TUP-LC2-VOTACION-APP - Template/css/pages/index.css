@@ -1,7 +1,17 @@
-header nav .div-menu{
+.menu {
     display: flex;
+    flex-direction: row;
+    align-items: center;
 }
-.div-menu p {
+
+#div-menu {
+    display: flex;
+    align-items: baseline;
+
+
+}
+
+#div-menu p {
     color: white;
     text-transform: uppercase;
     margin-right: 20px;
@@ -15,6 +25,7 @@ header nav .div-menu{
     text-align: center;
     margin-right: 5px;
     padding: 5px;
+    border: 0px;
 }
 #boton-paso a {
     font: #FFF;
@@ -34,6 +45,7 @@ header nav .div-menu{
     text-align: center;
     margin-right: 5px;
     padding: 5px;
+    border: 0px;
 }
 #boton-generales a {
     font: #FFF;
