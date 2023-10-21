@@ -32,6 +32,10 @@
     --mensaje-usuario-rojo: #dc3545;
 }
 
+main {
+    margin-bottom: 50px;
+}
+
 header nav {
     display: flex;
     flex-direction: row;
@@ -98,8 +102,6 @@ nav div select {
 }
 
 .seleccionable {
-    width: 10px;
-    padding-left: 20px;
     background-color: var(--fondo-Menu);
     color: var(--celeste);
     border: none;
@@ -128,6 +130,7 @@ label {
 
 main {
     margin-left: 50px;
+    margin-right: 50px;
 }
 
 .primer-div {
@@ -232,6 +235,7 @@ main {
     overflow-y: scroll;
 }
 
+
 .info-agrupaciones {
     display: flex;
     flex-direction: column;
@@ -262,9 +266,6 @@ main {
     height: 357px;
 }
 
-#mapa svg {
-    display: inline-block;
-}
 
 
 
@@ -364,7 +365,7 @@ main {
 
 /*barra de progreso*/
 .progress {
-    height: 35px;
+    height: 22px;
     width: 100%;
     border-radius: 5px;
     margin-bottom: 15px;

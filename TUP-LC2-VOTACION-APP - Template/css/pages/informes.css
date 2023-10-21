@@ -109,31 +109,37 @@
 
 /*tabla*/
 .tabla-informes {
+    display: grid;
     border: 1px solid var(--borde-Grilla);
     border-radius: 15px;
     width: 1024px;
     margin: 0px auto 50px auto;
     border-collapse: collapse;
     background-color: rgb(250, 250, 250);
-    overflow-y: auto;
+    border-bottom: 1px solid var(--borde-inferior-Grilla);
 }
 thead {
-    text-align: center;
     color: var(--titulo-Grilla);
     padding: 10px 20px;
     font-size: 14px;
     font-weight: bold;
     border-bottom: 1px solid var(--borde-inferior-Grilla);
 }
-tbody tr:hover {
+thead tr {
+    display: flex;
+    justify-content: space-around;
+}
+
+tbody:hover {
     background-color: rgb(250, 250, 250);
 }
-tbody td {
+tbody {
     background-color: rgb(255, 255, 255);
-    border-bottom: 1px solid var(--borde-inferior-Grilla);
     padding: 15px 0px;
     font-size: 12px;
 }
+
+
 
 .texto-elecciones-chico {
     font-size: 12px;
@@ -151,6 +157,8 @@ tbody td {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 #mesas-escrutadas {
     display: flex;
@@ -163,6 +171,7 @@ tbody td {
     height: 70px;
     font: #FFF;
     font-size: 10px;
+    color: white;
 }
 #electores {
     display: flex;
@@ -175,6 +184,7 @@ tbody td {
     height: 70px;
     font: #FFF;
     font-size: 10px;
+    color: white;
 }
 #part-escrutado {
     display: flex;
@@ -187,11 +197,12 @@ tbody td {
     height: 70px;
     font: #FFF;
     font-size: 10px;
+    color: white;
 }
 
 .datos-agrupacion {
     grid: 100px 100px;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     height: 325px;
     padding: 5px;
     font-size: 10px;
@@ -204,6 +215,9 @@ tbody td {
 .agrupacion div:first-child {
     padding-left: 20px;
     padding-right: 70px;
+}
+#agrup-pj {
+    padding-right: 90px;
 }
 .agrupacion {
     padding-bottom: 30px;
