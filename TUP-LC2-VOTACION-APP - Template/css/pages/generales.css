@@ -56,12 +56,12 @@ nav div {
     margin-right: 5px;
 }
 
-nav div select {
+/*nav div select {
     margin-left: 20px;
     margin-right: 20px;
     background-color: transparent;
     height: 30px;
-}
+}*/
 
 .seleccionable {
     width: 10px;
@@ -69,8 +69,11 @@ nav div select {
     background-color: var(--fondo-Menu);
     color: var(--celeste);
     border: none;
-    margin-left: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 30px;
 }
+
 
 label {
     font-size: 14px;
@@ -79,10 +82,6 @@ label {
     font-weight: bold;
 }
 
-#seleccionable-año {
-    margin-left: 50px;
-
-}
 
 .texto-path {
     font-size: 14px;
