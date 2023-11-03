@@ -26,17 +26,22 @@
         <!--Barra de menú principal-->
         <nav>
             <div>
-                <select name="seleccionable" class="seleccionable" id="select-anio">
+                <select name="seleccionable" class="seleccionable" id="select-anio" onchange="comboCargo()">
                     <option disabled selected value="0">Año</option>
                 </select>
 
-                <select name="seleccionable" class="seleccionable" id="select-cargo">
+                <select name="seleccionable" class="seleccionable" id="select-cargo" onchange="comboDistrito()">
                     <option disabled selected value="0">Cargo</option>
                 </select>
 
                 <select name="seleccionable" class="seleccionable" id="select-distrito">
                     <option disabled selected value="0">Distrito</option>
                 </select>
+
+                <select name="seleccionable" class="seleccionable" id="select-seccion">
+                    <option disabled selected value="0">Seccion</option>
+                </select>
+
                 <button class="boton-filtrar">
                     <i class="fa fa-search"></i> FILTRAR
                 </button>
