@@ -34,13 +34,14 @@
                     <option disabled selected value="0">Cargo</option>
                 </select>
 
-                <select name="seleccionable" class="seleccionable" id="select-distrito">
+                <select name="seleccionable" class="seleccionable" id="select-distrito" onchange="comboSeccion()">
                     <option disabled selected value="0">Distrito</option>
                 </select>
 
                 <select name="seleccionable" class="seleccionable" id="select-seccion">
                     <option disabled selected value="0">Seccion</option>
                 </select>
+                <input type="hidden" id="hdSeccionProvincial" name="hdSeccionProvincial">
 
                 <button class="boton-filtrar">
                     <i class="fa fa-search"></i> FILTRAR
