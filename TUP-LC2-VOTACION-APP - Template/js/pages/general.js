@@ -4,8 +4,13 @@ const tipoRecuento = 1;
 let selectAnio = document.getElementById('select-anio');
 let selectCargo = document.getElementById('select-cargo');
 let selectDistrito = document.getElementById('select-distrito');
+let selectSeccion = document.getElementById('select-seccion');
+let seccionProvincial = document.getElementById('hdSeccionProvincial');
+
 let datosAPI = [];
 let datosCargos = [];
+
+var primeraOpcion = document.createElement('option');
 
 document.addEventListener('DOMContentLoaded', function () {
     //Se llama a la función cuando se carga la página
@@ -25,7 +30,7 @@ async function consultarComboAnio() {
             data.forEach(anio => {
                 const option = document.createElement('option');
                 option.value = anio; // Se establece el valor del combo
-                option.textContent = anio.toString(); // Convertir a cadena para que el texto se pueda ver en el combo
+                option.text = anio; // Convertir a cadena para que el texto se pueda ver en el combo
                 selectAnio.appendChild(option); // Se agregan las opciones en el select
             });
 
@@ -49,6 +54,11 @@ function comboCargo() {
 
             datosAPI.forEach((eleccion) => {
                 if (eleccion.IdEleccion === tipoEleccion) {
+                    primeraOpcion.value = '0';
+                    primeraOpcion.text = 'Cargo';
+                    primeraOpcion.disabled = true;
+                    primeraOpcion.selected = true;
+                    selectCargo.appendChild(primeraOpcion);
                     eleccion.Cargos.forEach(cargo => {
                         const option = document.createElement('option');
                         option.value = cargo.IdCargo;
@@ -66,23 +76,69 @@ function comboCargo() {
 
 function comboDistrito() {
     selectDistrito.innerHTML = '';
-    console.log(datosAPI);
-    datosAPI.forEach((eleccion) => {
-        if (eleccion.IdEleccion === tipoEleccion) {
-            console.log(datosCargos);
-            datosCargos.forEach(cargo => {
-                if (cargo.Cargo == selectCargo.value) {
-                    console.log(cargo.Distritos);
-                    cargo.Distritos.forEach(distrito => {
-                        const option = document.createElement('option');
-                        option.value = distrito.IdDistrito;
-                        option.text = distrito.Distrito;
-                        selectDistrito.appendChild(option);
-                    });
-                }
-            });
-        }
-    });
+    try {
+        console.log(datosAPI);
+        datosAPI.forEach((eleccion) => {
+            if (eleccion.IdEleccion == tipoEleccion) {
+                console.log(eleccion.Cargos);
+                eleccion.Cargos.forEach(cargo => {
+                    if (cargo.IdCargo == selectCargo.value) {
+                        console.log(cargo.Distritos);
+                        primeraOpcion.value = '0';
+                        primeraOpcion.text = 'Distrito';
+                        primeraOpcion.disabled = true;
+                        primeraOpcion.selected = true;
+                        selectDistrito.appendChild(primeraOpcion);
+
+                        cargo.Distritos.forEach(distrito => {
+                            const option = document.createElement('option');
+                            option.value = distrito.IdDistrito;
+                            option.text = distrito.Distrito;
+                            selectDistrito.appendChild(option);
+                        });
+                    }
+                });
+            }
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 
+function comboSeccion() {
+    selectSeccion.innerHTML = '';
+
+    try {
+        datosAPI.forEach((eleccion) => {
+            if (eleccion.IdEleccion == tipoEleccion) {
+                eleccion.Cargos.forEach(cargo => {
+                    if (cargo.IdCargo == selectCargo.value) {
+                        cargo.Distritos.forEach(distrito => {
+                            if (distrito.IdDistrito == selectDistrito.value) {
+                                distrito.SeccionesProvinciales.forEach(secProvincial => {
+                                    seccionProvincial.value = secProvincial.IDSeccionProvincial;
+                                    primeraOpcion.value = '0';
+                                    primeraOpcion.text = 'Sección';
+                                    primeraOpcion.disabled = true;
+                                    primeraOpcion.selected = true;
+                                    selectSeccion.appendChild(primeraOpcion);
+                                    secProvincial.Secciones.forEach(seccion => {
+                                        const option = document.createElement('option');
+                                        option.value = seccion.IdSeccion;
+                                        option.text = seccion.Seccion;
+                                        selectSeccion.appendChild(option);
+                                    });
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+}

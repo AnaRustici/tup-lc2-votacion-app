@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="img/icons/favicon-16x16.png">
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/pages/paso.css">
+    <link rel="stylesheet" href="css/pages/generales.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="../TUP-LC2-VOTACION-APP - Template/js/pages/general.js" defer></script>
@@ -34,13 +34,14 @@
                     <option disabled selected value="0">Cargo</option>
                 </select>
 
-                <select name="seleccionable" class="seleccionable" id="select-distrito">
+                <select name="seleccionable" class="seleccionable" id="select-distrito" onchange="comboSeccion()">
                     <option disabled selected value="0">Distrito</option>
                 </select>
 
                 <select name="seleccionable" class="seleccionable" id="select-seccion">
                     <option disabled selected value="0">Seccion</option>
                 </select>
+                <input type="hidden" id="hdSeccionProvincial" name="hdSeccionProvincial">
 
                 <button class="boton-filtrar">
                     <i class="fa fa-search"></i> FILTRAR

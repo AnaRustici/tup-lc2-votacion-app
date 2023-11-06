@@ -1,8 +1,11 @@
+main {
+    margin-bottom: 50px;
+}
+
 header nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-end;
 }
 
 #boton-inicio {
@@ -11,8 +14,8 @@ header nav {
     padding: 8px;
     font-size: 10px;
     text-align: center;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 #boton-inicio a {
     font-size: 10px;
@@ -56,32 +59,25 @@ nav div {
     margin-right: 5px;
 }
 
-/*nav div select {
+nav div select {
+    max-width: 150px;
     margin-left: 20px;
     margin-right: 20px;
     background-color: transparent;
     height: 30px;
-}*/
+}
 
 .seleccionable {
-    width: 10px;
-    padding-left: 20px;
     background-color: var(--fondo-Menu);
     color: var(--celeste);
     border: none;
-    margin-left: 20px;
-    margin-right: 20px;
-    height: 30px;
+    margin-left: 5px;
 }
 
+#seleccionable-año {
+    margin-left: 50px;
 
-label {
-    font-size: 14px;
-    background: transparent;
-    color: var(--celeste);
-    font-weight: bold;
 }
-
 
 .texto-path {
     font-size: 14px;
@@ -93,6 +89,7 @@ label {
 
 main {
     margin-left: 50px;
+    margin-right: 50px;
 }
 
 .primer-div {
@@ -197,6 +194,7 @@ main {
     overflow-y: scroll;
 }
 
+
 .info-agrupaciones {
     display: flex;
     flex-direction: column;
@@ -227,9 +225,6 @@ main {
     height: 357px;
 }
 
-#mapa svg {
-    display: inline-block;
-}
 
 
 
@@ -329,7 +324,7 @@ main {
 
 /*barra de progreso*/
 .progress {
-    height: 35px;
+    height: 22px;
     width: 100%;
     border-radius: 5px;
     margin-bottom: 15px;
