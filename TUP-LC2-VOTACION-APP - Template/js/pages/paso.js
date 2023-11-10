@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function ocultarCarteles(){
-    cartelVerde.style.visibility = 'hidden';
-    cartelAmarillo.style.visibility = 'hidden';
-    cartelrojo.style.visibility = 'hidden';
+    cartelVerde.style.display = 'none';
+    cartelAmarillo.style.display = 'none';
+    cartelrojo.style.display = 'none';
 }
 
 function ocultarCarga(){
@@ -152,9 +152,9 @@ function comboSeccion() {
 
 async function validarSelects() {
     return selectAnio.value !== '0' &&
-           selectCargo.value !== '0' &&
-           selectDistrito.value !== '0' &&
-           selectSeccion.value !== '0';
+        selectCargo.value !== '0' &&
+        selectDistrito.value !== '0' &&
+        selectSeccion.value !== '0';
 }
 
 async function consultarResultados() {
@@ -179,7 +179,7 @@ async function consultarResultados() {
             cargandoDatos.style.visibility = "visible";
             const response = await fetch(url + parametros);
             if (response.ok) {
-                cartelVerde.style.visibility = 'visible'
+                cartelVerde.style.display = 'block'
                 tituloPaso.innerHTML = `Elecciones ${anioEleccion} | Paso`
                 subtituloPaso.innerHTML = `${anioEleccion} > Paso > ${categoriaString} > ${distritoString} > ${seccionString}`
                 resultados = await response.json();
@@ -187,17 +187,17 @@ async function consultarResultados() {
                 console.log(resultados)
             } else {    
                 ocultarCarteles();  
-                cartelrojo.style.visibility = 'visible'
+                cartelrojo.style.display = 'block'
             }
         }
         catch (err) {
             ocultarCarteles();
             ocultarCarga();
-            cartelrojo.style.visibility = 'visible'
+            cartelrojo.style.display = 'block'
             
         }
     } else {
         ocultarCarteles();
-        cartelAmarillo.style.visibility = 'visible'
+        cartelAmarillo.style.display = 'block'
     }
 }
