@@ -10,6 +10,8 @@ let cartelAmarillo = document.getElementById('texto-amarillo');
 let cartelVerde = document.getElementById('texto-verde');
 let cartelrojo = document.getElementById('texto-rojo');
 let cargandoDatos = document.getElementById('cargando');
+let tituloPaso = document.getElementById('titulo-paso');
+let subtituloPaso = document.getElementById('subtitulo-paso');
 let datosAPI = [];
 let datosCargos = [];
 
@@ -164,25 +166,35 @@ async function consultarResultados() {
         let distritoId = selectDistrito.value;
         let seccionProvincialId = seccionProvincial.value;
         let seccionId = selectSeccion.value;
+
+        let categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
+        let distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
+        let seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
+
+        
         let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
+        console.log(parametros)
         try {
             ocultarCarteles();
             cargandoDatos.style.visibility = "visible";
             const response = await fetch(url + parametros);
             if (response.ok) {
                 cartelVerde.style.visibility = 'visible'
+                tituloPaso.innerHTML = `Elecciones ${anioEleccion} | Paso`
+                subtituloPaso.innerHTML = `${anioEleccion} > Paso > ${categoriaString} > ${distritoString} > ${seccionString}`
                 resultados = await response.json();
-                cargandoDatos.style.visibility = "hidden";
+                ocultarCarga();
                 console.log(resultados)
-            } else {
-                ocultarCarteles();
+            } else {    
+                ocultarCarteles();  
                 cartelrojo.style.visibility = 'visible'
             }
         }
         catch (err) {
             ocultarCarteles();
+            ocultarCarga();
             cartelrojo.style.visibility = 'visible'
-            alert("Este es el catch")
+            
         }
     } else {
         ocultarCarteles();
