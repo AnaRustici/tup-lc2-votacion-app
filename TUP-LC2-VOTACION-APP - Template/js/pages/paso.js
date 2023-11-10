@@ -9,6 +9,7 @@ let seccionProvincial = document.getElementById('hdSeccionProvincial');
 let cartelAmarillo = document.getElementById('texto-amarillo');
 let cartelVerde = document.getElementById('texto-verde');
 let cartelrojo = document.getElementById('texto-rojo');
+let cargandoDatos = document.getElementById('cargando');
 let datosAPI = [];
 let datosCargos = [];
 
@@ -25,7 +26,12 @@ function ocultarCarteles(){
     cartelrojo.style.visibility = 'hidden';
 }
 
+function ocultarCarga(){
+    cargandoDatos.style.visibility = 'hidden';
+}
+
 ocultarCarteles();
+ocultarCarga();
 
 async function consultarComboAnio(){
     try {
@@ -152,7 +158,6 @@ async function validarSelects() {
 async function consultarResultados() {
     if (await validarSelects()) {
         ocultarCarteles();
-        cartelVerde.style.visibility = 'visible'
         const url = `https://resultados.mininterior.gob.ar/api/resultados/getResultados`
         let anioEleccion = selectAnio.value;
         let categoriaId = selectCargo.value;
@@ -161,14 +166,17 @@ async function consultarResultados() {
         let seccionId = selectSeccion.value;
         let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
         try {
+            ocultarCarteles();
+            cargandoDatos.style.visibility = "visible";
             const response = await fetch(url + parametros);
             if (response.ok) {
+                cartelVerde.style.visibility = 'visible'
                 resultados = await response.json();
+                cargandoDatos.style.visibility = "hidden";
                 console.log(resultados)
             } else {
                 ocultarCarteles();
                 cartelrojo.style.visibility = 'visible'
-                alert("este es el else")
             }
         }
         catch (err) {
