@@ -12,11 +12,15 @@ let cartelrojo = document.getElementById('texto-rojo');
 let cargandoDatos = document.getElementById('cargando');
 let tituloPaso = document.getElementById('titulo-paso');
 let subtituloPaso = document.getElementById('subtitulo-paso');
+let imagenMapa = document.getElementById('imagen-mapa');
+let mesasEscrutadas = document.getElementById('mesas-escrutadas-numero');
+let electores = document.getElementById('electores-numero');
+let participacionSobreEscrutado = document.getElementById('participacion-sobre-escrutado');
+
 let datosAPI = [];
 let datosCargos = [];
 
 var primeraOpcion = document.createElement('option');
-
 document.addEventListener('DOMContentLoaded', function () {
     //Se llama a la función cuando se carga la página
     consultarComboAnio();
@@ -157,6 +161,11 @@ async function validarSelects() {
         selectSeccion.value !== '0';
 }
 
+function cambiarImagenMapa(){
+    let mapa = selectDistrito.options[selectDistrito.selectedIndex].innerText;//Este es nombre del que selecciono el usuario
+
+}
+
 async function consultarResultados() {
     if (await validarSelects()) {
         ocultarCarteles();
@@ -173,7 +182,6 @@ async function consultarResultados() {
 
         
         let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
-        console.log(parametros)
         try {
             ocultarCarteles();
             cargandoDatos.style.visibility = "visible";
@@ -185,6 +193,11 @@ async function consultarResultados() {
                 resultados = await response.json();
                 ocultarCarga();
                 console.log(resultados)
+                mesasEscrutadas.innerHTML = `Mesas escrutadas ${resultados.estadoRecuento.mesasTotalizadas}`;
+                electores.innerHTML = `Electores ${resultados.estadoRecuento.cantidadElectores}`;
+                participacionSobreEscrutado.innerHTML = `Participacion sobre escrutado ${resultados.estadoRecuento.participacionPorcentaje}%`;
+
+   
             } else {    
                 ocultarCarteles();  
                 cartelrojo.style.display = 'block'

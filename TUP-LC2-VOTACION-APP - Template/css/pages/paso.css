@@ -162,6 +162,10 @@ main {
     align-items: center;
 }
 
+.datos-elecciones{
+    color: #FFF;
+}
+
 #electores {
     display: flex;
     background-color: var(--magenta);
