@@ -6,6 +6,9 @@ let selectCargo = document.getElementById('select-cargo');
 let selectDistrito = document.getElementById('select-distrito');
 let selectSeccion = document.getElementById('select-seccion');
 let seccionProvincial = document.getElementById('hdSeccionProvincial');
+let cartelAmarillo = document.getElementById('texto-amarillo');
+let cartelVerde = document.getElementById('texto-verde');
+let cartelrojo = document.getElementById('texto-rojo');
 let datosAPI = [];
 let datosCargos = [];
 
@@ -15,6 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
     //Se llama a la función cuando se carga la página
     consultarComboAnio();
 });
+
+function ocultarCarteles(){
+    cartelVerde.style.visibility = 'hidden';
+    cartelAmarillo.style.visibility = 'hidden';
+    cartelrojo.style.visibility = 'hidden';
+}
+
+ocultarCarteles();
 
 async function consultarComboAnio(){
     try {
@@ -96,7 +107,6 @@ function comboDistrito() {
     }
 }
 
-
 function comboSeccion() {
     selectSeccion.innerHTML = '';
     try {
@@ -129,5 +139,47 @@ function comboSeccion() {
     }
     catch (err) {
         console.log(err);
+    }
+}
+
+async function validarSelects() {
+    return selectAnio.value !== '0' &&
+           selectCargo.value !== '0' &&
+           selectDistrito.value !== '0' &&
+           selectSeccion.value !== '0';
+}
+
+async function consultarResultados() {
+    if (await validarSelects()) {
+        ocultarCarteles();
+        cartelVerde.style.visibility = 'visible'
+        const url = `https://resultados.mininterior.gob.ar/api/resultados/getResultados`
+        let anioEleccion = selectAnio.value;
+        let categoriaId = selectCargo.value;
+        let distritoId = selectDistrito.value;
+        let seccionProvincialId = seccionProvincial.value;
+        let seccionId = selectSeccion.value;
+        let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
+        try {
+            const response = await fetch(url + parametros);
+            if (response.ok) {
+                resultados = await response.json();
+                console.log(resultados)
+
+                cuadroMesas.textContent = `${resultados.estadoRecuento.mesasTotalizadas}`
+                cuadroElectores.textContent = `${resultados.estadoRecuento.cantidadElectores}`
+                cuadroParticipacion.textContent = `${resultados.estadoRecuento.participacionPorcentaje}%`
+            } else {
+                ocultarCarteles();
+                cartelrojo.style.visibility = 'visible'
+            }
+        }
+        catch (err) {
+            ocultarCarteles();
+            cartelrojo.style.visibility = 'visible'
+            alert("asdsa")
+        }
+    } else {
+        cartelAmarillo.style.visibility = 'visible'
     }
 }
