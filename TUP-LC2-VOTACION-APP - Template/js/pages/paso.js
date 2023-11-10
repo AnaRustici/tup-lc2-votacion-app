@@ -165,21 +165,19 @@ async function consultarResultados() {
             if (response.ok) {
                 resultados = await response.json();
                 console.log(resultados)
-
-                cuadroMesas.textContent = `${resultados.estadoRecuento.mesasTotalizadas}`
-                cuadroElectores.textContent = `${resultados.estadoRecuento.cantidadElectores}`
-                cuadroParticipacion.textContent = `${resultados.estadoRecuento.participacionPorcentaje}%`
             } else {
                 ocultarCarteles();
                 cartelrojo.style.visibility = 'visible'
+                alert("este es el else")
             }
         }
         catch (err) {
             ocultarCarteles();
             cartelrojo.style.visibility = 'visible'
-            alert("asdsa")
+            alert("Este es el catch")
         }
     } else {
+        ocultarCarteles();
         cartelAmarillo.style.visibility = 'visible'
     }
 }
