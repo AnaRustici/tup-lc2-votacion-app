@@ -253,9 +253,37 @@ async function consultarResultados() {
     
 }
 
+function agregarInforme() {
+    // Obtener la lista de informes almacenados en localStorage bajo la clave 'INFORMES'
+    let informes;
+    let informesEnLocalStorage = localStorage.getItem('INFORMES');
 
-function guardarInforme(parametros){
-    localStorage.setItem("INFORMES", JSON.stringify(parametros));
+    if (informesEnLocalStorage) {
+        informes = JSON.parse(informesEnLocalStorage);
+    } else {
+        informes = [];
+    }
+
+    let nuevosDatos = {
+        anio: selectAnio.value,
+        tipoRecuento: tipoRecuento,
+        tipoEleccion: tipoEleccion,
+        categoriaId: selectCargo.value,
+        distrito: selectDistrito.value,
+        seccionProvincial: 0,
+        seccionId: selectSeccion.value,
+        circuitoId: "",
+        mesaId: ""
+    };
+    console.log(nuevosDatos)
+    // Verificar si los nuevos datos ya existen en la lista
+    if (!informes.includes(JSON.stringify(nuevosDatos))) {
+        // Si no existen, agregar los nuevos datos a la lista
+        informes.push(JSON.stringify(nuevosDatos));
+        // Guardar la lista actualizada en localStorage bajo la clave 'INFORMES'
+        localStorage.setItem('INFORMES', JSON.stringify(informes));
+        console.log('Datos guardados con éxito en la lista de informes.');
+    } else {
+        console.log('Los datos ya están en la lista de informes, no se han agregado.');
+    }
 }
-
-//console.log(localStorage.getItem("INFORMES"));
