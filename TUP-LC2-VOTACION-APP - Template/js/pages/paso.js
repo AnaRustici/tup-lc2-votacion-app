@@ -49,31 +49,25 @@ const provinciasSVG = [
 let datosAPI = [];
 let datosCargos = [];
 
-//AGREGAR PARA QUE SIRVE ESTA FUNCION
 var primeraOpcion = document.createElement('option');
 document.addEventListener('DOMContentLoaded', function () {
     //Se llama a la función cuando se carga la página
     consultarComboAnio();
 });
 
-//funcion para ocultar carteles verde, amarillo y rojo
 function ocultarCarteles(){
     cartelVerde.style.display = 'none';
     cartelAmarillo.style.display = 'none';
     cartelrojo.style.display = 'none';
 }
 
-//funcion para ocultar el cartel de carga para la api
 function ocultarCarga(){
     cargandoDatos.style.visibility = 'hidden';
 }
 
-//los ejecutamos para que quede oculto hasta que se llamen dentro de otras funciones
 ocultarCarteles();
 ocultarCarga();
 
-
-//funcion para consultar a la api y se guarda el año en los options creados
 async function consultarComboAnio(){
     try {
         const respuesta = await fetch("https://resultados.mininterior.gob.ar/api/menu/periodos");
@@ -97,13 +91,13 @@ async function consultarComboAnio(){
         console.log(err);
     }
 }
-//funcion para consultar el cargo politico, se guarda en una variable y se asigna a los options
+
 function comboCargo() {
     fetch("https://resultados.mininterior.gob.ar/api/menu?año=" + selectAnio.value)
         .then(response => response.json())
         .then(data => {
             datosAPI = data;
-            console.log(datosAPI);
+            console.log(datosAPI)
 
             selectCargo.innerHTML = '';
 
@@ -124,7 +118,6 @@ function comboCargo() {
         });
 }
 
-//funcion para consultar la provincia, se guarda en variable y se asigna al option creado
 function comboDistrito() {
     selectDistrito.innerHTML = '';
     try {
@@ -154,7 +147,7 @@ function comboDistrito() {
         console.log(err);
     }
 }
-//funcion para consultar y guardar el departamento de la provincia, crear y guardar el valor en el option creado
+
 function comboSeccion() {
     selectSeccion.innerHTML = '';
     try {
@@ -172,7 +165,6 @@ function comboSeccion() {
                                     primeraOpcion.selected = true;
                                     selectSeccion.appendChild(primeraOpcion);
                                     secProvincial.Secciones.forEach(seccion => {
-                                        //estas constantes que estan en todos las funciones se podrian poner global?
                                         const option = document.createElement('option');
                                         option.value = seccion.IdSeccion;
                                         option.text = seccion.Seccion;
@@ -190,7 +182,7 @@ function comboSeccion() {
         console.log(err);
     }
 }
-//funcion para validar que los select no esten vacios
+
 async function validarSelects() {
     return selectAnio.value !== '0' &&
         selectCargo.value !== '0' &&
@@ -198,15 +190,11 @@ async function validarSelects() {
         selectSeccion.value !== '0';
 }
 
-//la comento porque me parece que no sirve pa na
-/*
 function cambiarImagenMapa(){
     let mapa = selectDistrito.options[selectDistrito.selectedIndex].innerText;//Este es nombre del que selecciono el usuario
 
-}*/
+}
 
-/*funcion para consultar a la api los resultados de las mesas, se guardan en variables, y se asignan en las etiquetas
-para modificar los titulos, subtitulos y mapas*/
 async function consultarResultados() {
     if (await validarSelects()) {
         ocultarCarteles();
@@ -221,6 +209,8 @@ async function consultarResultados() {
         let distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
         let seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
 
+        
+        
         let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
         try {
             ocultarCarteles();
@@ -263,7 +253,6 @@ async function consultarResultados() {
     
 }
 
-//funcion para agregar un informe, pero solo en consola
 function agregarInforme() {
     // Obtener la lista de informes almacenados en localStorage bajo la clave 'INFORMES'
     let informes;
@@ -275,17 +264,26 @@ function agregarInforme() {
         informes = [];
     }
 
+    if (selectAnio.value === '0' || selectCargo.value === '0' || selectDistrito.value === '0' || selectSeccion.value === '0') {
+        cartelAmarillo.style.display = "block"
+        return;
+    }
+    
+
     let nuevosDatos = {
-        anio: selectAnio.value,
-        tipoRecuento: tipoRecuento,
-        tipoEleccion: tipoEleccion,
-        categoriaId: selectCargo.value,
-        distrito: selectDistrito.value,
-        seccionProvincial: 0,
-        seccionId: selectSeccion.value,
-        circuitoId: "",
-        mesaId: ""
+        vAnio: selectAnio.value,
+        vTipoRecuento: tipoRecuento,
+        vTipoEleccion: tipoEleccion,
+        vCategoriaId: selectCargo.value,
+        vDistrito: selectDistrito.value,
+        vSeccionProvincial: 0,
+        vSeccionId: selectSeccion.value,
+        vCircuitoId: "",
+        vMesaId: ""
     };
+
+
+
     console.log(nuevosDatos)
     // Verificar si los nuevos datos ya existen en la lista
     if (!informes.includes(JSON.stringify(nuevosDatos))) {
@@ -293,8 +291,12 @@ function agregarInforme() {
         informes.push(JSON.stringify(nuevosDatos));
         // Guardar la lista actualizada en localStorage bajo la clave 'INFORMES'
         localStorage.setItem('INFORMES', JSON.stringify(informes));
+        ocultarCarteles();
         console.log('Datos guardados con éxito en la lista de informes.');
+        cartelVerde.style.display = "block"
     } else {
-        console.log('Los datos ya están en la lista de informes, no se han agregado.');
+        ocultarCarteles();
+        cartelAmarillo.innerHTML='<i class="fa fa-exclamation"></i>Los datos ya están en la lista de informes, no se han agregado.'
+        cartelAmarillo.style.display = "block"
     }
 }
