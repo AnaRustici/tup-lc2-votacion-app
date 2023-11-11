@@ -265,6 +265,7 @@ function agregarInforme() {
     }
 
     if (selectAnio.value === '0' || selectCargo.value === '0' || selectDistrito.value === '0' || selectSeccion.value === '0') {
+        cartelAmarillo.innerHTML='<i class="fa fa-exclamation"></i>Los campos deben estar llenos para agregar el informe.'
         cartelAmarillo.style.display = "block"
         return;
     }
