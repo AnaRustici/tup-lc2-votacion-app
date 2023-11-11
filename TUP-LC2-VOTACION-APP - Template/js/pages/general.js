@@ -1,4 +1,4 @@
-const tipoEleccion = 2;
+const tipoEleccionn = 2;
 const tipoRecuento = 1;
 
 //declaramos las variables para el HTML
@@ -19,6 +19,10 @@ let electores = document.getElementById('electores-numero');
 let participacionSobreEscrutado = document.getElementById('participacion-sobre-escrutado');
 let svgMapa = document.getElementById('svg-mapa');
 let svgTituloMapa = document.getElementById("titulo-svg");
+let anioString = "";
+let categoriaString = "";
+let distritoString = "";
+let seccionString = "";
 
 //arreglo constante con los mapas e ID para buscarlo despues
 const provinciasSVG = [
@@ -113,7 +117,7 @@ function comboCargo() {
             selectCargo.innerHTML = '';
 
             datosAPI.forEach((eleccion) => {
-                if (eleccion.IdEleccion === tipoEleccion) {
+                if (eleccion.IdEleccion === tipoEleccionn) {
                     eleccion.Cargos.forEach(cargo => {
                         const option = document.createElement('option');
                         option.value = cargo.IdCargo;
@@ -135,7 +139,7 @@ function comboDistrito() {
     try {
         console.log(datosAPI);
         datosAPI.forEach((eleccion) => {
-            if (eleccion.IdEleccion == tipoEleccion) {
+            if (eleccion.IdEleccion == tipoEleccionn) {
                 eleccion.Cargos.forEach(cargo => {
                     if (cargo.IdCargo == selectCargo.value) {
                         console.log(cargo.Distritos);
@@ -164,7 +168,7 @@ function comboSeccion() {
     selectSeccion.innerHTML = '';
     try {
         datosAPI.forEach((eleccion) => {
-            if (eleccion.IdEleccion == tipoEleccion) {
+            if (eleccion.IdEleccion == tipoEleccionn) {
                 eleccion.Cargos.forEach(cargo => {
                     if (cargo.IdCargo == selectCargo.value) {
                         cargo.Distritos.forEach(distrito => {
@@ -215,11 +219,11 @@ async function consultarResultados() {
         let seccionProvincialId = seccionProvincial.value;
         let seccionId = selectSeccion.value;
 
-        let categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
-        let distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
-        let seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
+        categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
+        distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
+        seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
 
-        let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
+        let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccionn}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
         try {
             ocultarCarteles();
             cargandoDatos.style.visibility = "visible";
@@ -273,17 +277,26 @@ function agregarInforme() {
     } else {
         informes = [];
     }
+    anioString = selectAnio.options[selectAnio.selectedIndex].innerText;
+    categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
+    distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
+    seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
+
 
     let nuevosDatos = {
-        anio: selectAnio.value,
-        tipoRecuento: tipoRecuento,
-        tipoEleccion: tipoEleccion,
-        categoriaId: selectCargo.value,
-        distrito: selectDistrito.value,
-        seccionProvincial: 0,
-        seccionId: selectSeccion.value,
-        circuitoId: "",
-        mesaId: ""
+        vAnio: selectAnio.value,
+        vTipoRecuento: tipoRecuento,
+        vTipoEleccion: tipoEleccionn,
+        vCategoriaId: selectCargo.value,
+        vDistrito: selectDistrito.value,
+        vSeccionProvincial: 0,
+        vSeccionId: selectSeccion.value,
+        vCircuitoId: "",
+        vMesaId: "",
+        vAnioSeleccionado: anioString,
+        vCargoSeleccionado: categoriaString,
+        vDistritoSeleccionado: distritoString,
+        seccionSeleccionada: seccionString
     };
     console.log(nuevosDatos)
     // Verificar si los nuevos datos ya existen en la lista
