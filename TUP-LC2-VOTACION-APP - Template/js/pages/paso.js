@@ -49,24 +49,33 @@ const provinciasSVG = [
 let datosAPI = [];
 let datosCargos = [];
 
+//AGREGAR PARA QUE SIRVE ESTA FUNCION
 var primeraOpcion = document.createElement('option');
 document.addEventListener('DOMContentLoaded', function () {
     //Se llama a la función cuando se carga la página
     consultarComboAnio();
 });
 
+//funcion para ocultar carteles verde, amarillo y rojo
 function ocultarCarteles(){
     cartelVerde.style.display = 'none';
     cartelAmarillo.style.display = 'none';
     cartelrojo.style.display = 'none';
 }
 
+//funcion para ocultar el cartel de carga para la api
 function ocultarCarga(){
     cargandoDatos.style.visibility = 'hidden';
 }
 
+//los ejecutamos para que quede oculto hasta que se llamen dentro de otras funciones
 ocultarCarteles();
 ocultarCarga();
+
+
+//COPIE HASTA ACA
+//COPIE HASTA ACA
+//COPIE HASTA ACA
 
 async function consultarComboAnio(){
     try {
