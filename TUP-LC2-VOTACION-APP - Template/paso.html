@@ -47,7 +47,7 @@
                     <i class="fa fa-search"></i> FILTRAR
                 </button>
                 <button id="boton-informes">
-                    <a class="active" href="informes.html">INFORMES</a>
+                    <a class="active" href="informes.html" onclick="guardarInforme()">INFORMES</a>
                 </button>
             </div>
             <button id="boton-inicio">
@@ -310,7 +310,7 @@
                     
                 </div>
                 <div id="mapa">
-                    <div class="title">Buenos Aires</div>
+                    <div class="title" id="titulo-svg">Buenos Aires</div>
                     <div id="img-mapa">
                         <svg height="210" width="700" id="svg-mapa">
                             <path id="imagen-mapa" class="leaflet-interactive" stroke="#18a0fb" stroke-opacity="1" stroke-width="2"
