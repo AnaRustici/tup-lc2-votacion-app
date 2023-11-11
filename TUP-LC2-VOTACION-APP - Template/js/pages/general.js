@@ -75,6 +75,7 @@ function ocultarCarga(){
 ocultarCarteles();
 ocultarCarga();
 
+//funcion para consultar a la api y se guarda el año en los options creados
 async function consultarComboAnio() {
     try {
         const respuesta = await fetch("https://resultados.mininterior.gob.ar/api/menu/periodos");
@@ -101,21 +102,18 @@ async function consultarComboAnio() {
 
 }
 
+//funcion para consultar el cargo politico, se guarda en una variable y se asigna a los options
 function comboCargo() {
     fetch("https://resultados.mininterior.gob.ar/api/menu?año=" + selectAnio.value)
         .then(response => response.json())
         .then(data => {
             datosAPI = data;
+            console.log(datosAPI);
 
             selectCargo.innerHTML = '';
 
             datosAPI.forEach((eleccion) => {
                 if (eleccion.IdEleccion === tipoEleccion) {
-                    primeraOpcion.value = '0';
-                    primeraOpcion.text = 'Cargo';
-                    primeraOpcion.disabled = true;
-                    primeraOpcion.selected = true;
-                    selectCargo.appendChild(primeraOpcion);
                     eleccion.Cargos.forEach(cargo => {
                         const option = document.createElement('option');
                         option.value = cargo.IdCargo;
@@ -131,13 +129,13 @@ function comboCargo() {
         });
 }
 
+//funcion para consultar la provincia, se guarda en variable y se asigna al option creado
 function comboDistrito() {
     selectDistrito.innerHTML = '';
     try {
         console.log(datosAPI);
         datosAPI.forEach((eleccion) => {
             if (eleccion.IdEleccion == tipoEleccion) {
-                console.log(eleccion.Cargos);
                 eleccion.Cargos.forEach(cargo => {
                     if (cargo.IdCargo == selectCargo.value) {
                         console.log(cargo.Distritos);
@@ -146,7 +144,6 @@ function comboDistrito() {
                         primeraOpcion.disabled = true;
                         primeraOpcion.selected = true;
                         selectDistrito.appendChild(primeraOpcion);
-
                         cargo.Distritos.forEach(distrito => {
                             const option = document.createElement('option');
                             option.value = distrito.IdDistrito;
@@ -162,11 +159,9 @@ function comboDistrito() {
         console.log(err);
     }
 }
-
-
+//funcion para consultar y guardar el departamento de la provincia, crear y guardar el valor en el option creado
 function comboSeccion() {
     selectSeccion.innerHTML = '';
-
     try {
         datosAPI.forEach((eleccion) => {
             if (eleccion.IdEleccion == tipoEleccion) {
@@ -197,5 +192,108 @@ function comboSeccion() {
     }
     catch (err) {
         console.log(err);
+    }
+}
+
+//funcion para validar que los select no esten vacios
+async function validarSelects() {
+    return selectAnio.value !== '0' &&
+        selectCargo.value !== '0' &&
+        selectDistrito.value !== '0' &&
+        selectSeccion.value !== '0';
+}
+
+/*funcion para consultar a la api los resultados de las mesas, se guardan en variables, y se asignan en las etiquetas
+para modificar los titulos, subtitulos y mapas*/
+async function consultarResultados() {
+    if (await validarSelects()) {
+        ocultarCarteles();
+        const url = `https://resultados.mininterior.gob.ar/api/resultados/getResultados`
+        let anioEleccion = selectAnio.value;
+        let categoriaId = selectCargo.value;
+        let distritoId = selectDistrito.value;
+        let seccionProvincialId = seccionProvincial.value;
+        let seccionId = selectSeccion.value;
+
+        let categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
+        let distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
+        let seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
+
+        let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
+        try {
+            ocultarCarteles();
+            cargandoDatos.style.visibility = "visible";
+            const response = await fetch(url + parametros);
+            if (response.ok) {
+                cartelVerde.style.display = 'block'
+                tituloPaso.innerHTML = `Elecciones ${anioEleccion} | Paso`
+                subtituloPaso.innerHTML = `${anioEleccion} > Paso > ${categoriaString} > ${distritoString} > ${seccionString}`
+                resultados = await response.json();
+                ocultarCarga();
+                console.log(resultados)
+                mesasEscrutadas.innerHTML = `Mesas escrutadas ${resultados.estadoRecuento.mesasTotalizadas}`;
+                electores.innerHTML = `Electores ${resultados.estadoRecuento.cantidadElectores}`;
+                participacionSobreEscrutado.innerHTML = `Participacion sobre escrutado ${resultados.estadoRecuento.participacionPorcentaje}%`;
+                for(i=0 ; i<25 ; i++){
+                    if(distritoId == i){
+                        
+                        svgMapa.innerHTML = provinciasSVG[i-1].svg;
+                        svgTituloMapa.innerHTML = provinciasSVG[i-1].provincia;
+                        //modificamos el html svg con el arreglo de objetos posicion i-1 porque cuando llega ya es el siguiente
+                    }
+                }
+
+            } else {    
+                ocultarCarteles();  
+                cartelrojo.style.display = 'block'
+            }
+        }
+        catch (err) {
+            ocultarCarteles();
+            ocultarCarga();
+            cartelrojo.style.display = 'block'
+            
+        }
+    } else {
+        ocultarCarteles();
+        cartelAmarillo.style.display = 'block'
+    }
+    
+}
+
+
+//funcion para agregar un informe, pero solo en consola
+function agregarInforme() {
+    // Obtener la lista de informes almacenados en localStorage bajo la clave 'INFORMES'
+    let informes;
+    let informesEnLocalStorage = localStorage.getItem('INFORMES');
+
+    if (informesEnLocalStorage) {
+        informes = JSON.parse(informesEnLocalStorage);
+    } else {
+        informes = [];
+    }
+
+    let nuevosDatos = {
+        anio: selectAnio.value,
+        tipoRecuento: tipoRecuento,
+        tipoEleccion: tipoEleccion,
+        categoriaId: selectCargo.value,
+        distrito: selectDistrito.value,
+        seccionProvincial: 0,
+        seccionId: selectSeccion.value,
+        circuitoId: "",
+        mesaId: ""
+    };
+    console.log(nuevosDatos)
+    // Verificar si los nuevos datos ya existen en la lista
+    if (!informes.includes(JSON.stringify(nuevosDatos))) {
+        // Si no existen, agregar los nuevos datos a la lista
+        informes.push(JSON.stringify(nuevosDatos));
+        // Guardar la lista actualizada en localStorage bajo la clave 'INFORMES'
+        localStorage.setItem('INFORMES', JSON.stringify(informes));
+        console.log('Datos guardados con éxito en la lista de informes.');
+    } else {
+        console.log('Los datos ya están en la lista de informes, no se han agregado.');
     }
 }

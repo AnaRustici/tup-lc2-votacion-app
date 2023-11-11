@@ -73,10 +73,7 @@ ocultarCarteles();
 ocultarCarga();
 
 
-//COPIE HASTA ACA
-//COPIE HASTA ACA
-//COPIE HASTA ACA
-
+//funcion para consultar a la api y se guarda el año en los options creados
 async function consultarComboAnio(){
     try {
         const respuesta = await fetch("https://resultados.mininterior.gob.ar/api/menu/periodos");
@@ -100,13 +97,13 @@ async function consultarComboAnio(){
         console.log(err);
     }
 }
-
+//funcion para consultar el cargo politico, se guarda en una variable y se asigna a los options
 function comboCargo() {
     fetch("https://resultados.mininterior.gob.ar/api/menu?año=" + selectAnio.value)
         .then(response => response.json())
         .then(data => {
             datosAPI = data;
-            console.log(datosAPI)
+            console.log(datosAPI);
 
             selectCargo.innerHTML = '';
 
@@ -127,6 +124,7 @@ function comboCargo() {
         });
 }
 
+//funcion para consultar la provincia, se guarda en variable y se asigna al option creado
 function comboDistrito() {
     selectDistrito.innerHTML = '';
     try {
@@ -156,7 +154,7 @@ function comboDistrito() {
         console.log(err);
     }
 }
-
+//funcion para consultar y guardar el departamento de la provincia, crear y guardar el valor en el option creado
 function comboSeccion() {
     selectSeccion.innerHTML = '';
     try {
@@ -174,6 +172,7 @@ function comboSeccion() {
                                     primeraOpcion.selected = true;
                                     selectSeccion.appendChild(primeraOpcion);
                                     secProvincial.Secciones.forEach(seccion => {
+                                        //estas constantes que estan en todos las funciones se podrian poner global?
                                         const option = document.createElement('option');
                                         option.value = seccion.IdSeccion;
                                         option.text = seccion.Seccion;
@@ -191,7 +190,7 @@ function comboSeccion() {
         console.log(err);
     }
 }
-
+//funcion para validar que los select no esten vacios
 async function validarSelects() {
     return selectAnio.value !== '0' &&
         selectCargo.value !== '0' &&
@@ -199,11 +198,15 @@ async function validarSelects() {
         selectSeccion.value !== '0';
 }
 
+//la comento porque me parece que no sirve pa na
+/*
 function cambiarImagenMapa(){
     let mapa = selectDistrito.options[selectDistrito.selectedIndex].innerText;//Este es nombre del que selecciono el usuario
 
-}
+}*/
 
+/*funcion para consultar a la api los resultados de las mesas, se guardan en variables, y se asignan en las etiquetas
+para modificar los titulos, subtitulos y mapas*/
 async function consultarResultados() {
     if (await validarSelects()) {
         ocultarCarteles();
@@ -218,8 +221,6 @@ async function consultarResultados() {
         let distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
         let seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
 
-        
-        
         let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=&mesaId=`
         try {
             ocultarCarteles();
@@ -262,6 +263,7 @@ async function consultarResultados() {
     
 }
 
+//funcion para agregar un informe, pero solo en consola
 function agregarInforme() {
     // Obtener la lista de informes almacenados en localStorage bajo la clave 'INFORMES'
     let informes;
