@@ -18,11 +18,29 @@ let electores = document.getElementById('electores-numero');
 let participacionSobreEscrutado = document.getElementById('participacion-sobre-escrutado');
 let svgMapa = document.getElementById('svg-mapa');
 let svgTituloMapa = document.getElementById("titulo-svg");
-
 let anioString = "";
 let categoriaString = "";
 let distritoString = "";
 let seccionString = "";
+
+let coloresGraficaPlenos = [
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-bordo'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-lila'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-lila2'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-verde'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-gris')
+]
+let coloresGraficaLivianos = [
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-bordo-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-lila-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-lila2-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-verde-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-gris-claro')
+]
 
 const provinciasSVG = [
     { provincia: 'Ciudad Autónoma de Buenos Aires', id: '1', svg: '<svg><path class="leaflet-interactive" stroke="#18a0fb" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#18a0fb" fill-opacity="1" fill-rule="evenodd" d="M182 61L179 56L176 58L178 56L176 53L173 55L169 47L168 48L164 45L157 43L158 41L155 41L154 36L149 32L148 33L143 29L142 30L145 32L140 29L138 32L137 30L140 29L139 26L137 28L136 23L133 22L130 27L103 41L81 99L82 134L131 179L159 140L168 137L171 139L174 138L181 141L186 137L195 136L200 130L207 125L205 120L210 118L210 112L205 107L210 110L213 114L215 113L215 110L217 110L218 112L219 111L217 109L221 111L224 109L220 106L222 106L221 102L218 102L216 104L215 103L217 102L212 102L220 101L219 95L216 92L214 86L208 81L200 83L199 80L201 79L202 81L200 77L206 75L203 75L203 73L206 73L201 71L205 70L199 69L198 68L202 68L200 66L195 67L194 66L198 65L188 62L192 62L190 60L183 59L189 64L187 65z"></path></svg>' },
@@ -50,6 +68,7 @@ const provinciasSVG = [
     { provincia: 'Tucumán', id: '23', svg: '<svg><path class="leaflet-interactive" stroke="#18a0fb" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#18a0fb" fill-opacity="1" fill-rule="evenodd" d="M165 127L168 126L165 123L167 115L169 116L172 114L177 102L179 89L181 90L181 87L184 88L185 81L189 82L189 58L182 59L176 57L169 61L168 59L155 57L152 51L147 53L136 53L134 65L117 58L117 67L114 68L114 76L115 78L118 78L128 85L126 91L128 93L115 110L122 114L122 123L125 132L129 137L129 141L130 142L131 138L133 138L135 144L140 149L142 149L144 145L150 141L158 146L160 142L163 144L164 143L166 137L169 137L165 128z"></path></svg>' },
     { provincia: 'Tierra del Fuego, Antártida e Islas del Atlántico Sur', id: '24', svg: '<svg><path class="leaflet-interactive" stroke="#18a0fb" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#18a0fb" fill-opacity="1" fill-rule="evenodd" d="M166 125L160 121L154 114L139 104L136 98L129 92L122 78L120 79L114 76L114 73L118 67L120 67L121 69L121 67L113 54L113 140L114 138L118 138L120 136L132 139L141 138L161 146L163 143L172 143L173 140L177 140L180 142L185 139L185 141L188 140L188 138L190 137L189 135L192 130L181 130L170 128L167 126z"></path></svg>' }
 ];
+
 let datosAPI = [];
 let datosCargos = [];
 
@@ -180,16 +199,14 @@ function comboSeccion() {
         console.log(err);
     }
 }
+
 async function validarSelects() {
     return selectAnio.value !== '0' &&
         selectCargo.value !== '0' &&
         selectDistrito.value !== '0' &&
         selectSeccion.value !== '0';
 }
-function cambiarImagenMapa(){
-    let mapa = selectDistrito.options[selectDistrito.selectedIndex].innerText;//Este es nombre del que selecciono el usuario
 
-}
 async function consultarResultados() {
     if (await validarSelects()) {
         ocultarCarteles();
@@ -199,7 +216,7 @@ async function consultarResultados() {
         let distritoId = selectDistrito.value;
         let seccionProvincialId = seccionProvincial.value;
         let seccionId = selectSeccion.value;
-        
+
         let anioString = selectAnio.options[selectAnio.selectedIndex].innerText;
         let categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
         let distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
@@ -229,7 +246,8 @@ async function consultarResultados() {
                     }
                 }
             } else {    
-                ocultarCarteles();  
+                ocultarCarteles();
+                ocultarCarga();
                 cartelrojo.style.display = 'block'
             }
         }
@@ -240,6 +258,7 @@ async function consultarResultados() {
         }
     } else {
         ocultarCarteles();
+        ocultarCarga();
         cartelAmarillo.style.display = 'block'
     }
     
@@ -259,28 +278,27 @@ function agregarInforme() {
         cartelAmarillo.style.display = "block"
         return;
     }
-
     anioString = selectAnio.options[selectAnio.selectedIndex].innerText;
     categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
     distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
-    seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
+    seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText; 
 
-    let nuevosDatos = {
-        vAnio: selectAnio.value,
-        vTipoRecuento: tipoRecuento,
-        vTipoEleccion: tipoEleccion,
-        vCategoriaId: selectCargo.value,
-        vDistrito: selectDistrito.value,
-        vSeccionProvincial: 0,
-        vSeccionId: selectSeccion.value,
-        vCircuitoId: "",
-        vMesaId: "",
-        vAnioSeleccionado: anioString,
-        vCargoSeleccionado: categoriaString,
-        vDistritoSeleccionado: distritoString,
-        seccionSeleccionada: seccionString
-    };
-    console.log(nuevosDatos)
+        let vAnio = selectAnio.value;
+        let vTipoRecuento= tipoRecuento;
+        let vTipoEleccion= tipoEleccion;
+        let vCategoriaId= selectCargo.value;
+        let vDistrito= selectDistrito.value;
+        let vSeccionProvincial= 0;
+        let vSeccionId= selectSeccion.value;
+        let vCircuitoId= "";
+        let vMesaId= "";
+        let vAnioSeleccionado= anioString;
+        let vCargoSeleccionado= categoriaString;
+        let vDistritoSeleccionado= distritoString;
+        let seccionSeleccionada= seccionString;
+        let nuevosDatos = `${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${vSeccionId}|${vCircuitoId}|${vMesaId}|${vAnioSeleccionado}|${vCargoSeleccionado}|${vDistritoSeleccionado}|${seccionSeleccionada}`
+        console.log( "CONSOLE LOG DE LOS DATOS DEL NUEVO INFORME: " + nuevosDatos)
+
     // Verificar si los nuevos datos ya existen en la lista
     if (!informes.includes(JSON.stringify(nuevosDatos))) {
         // Si no existen, agregar los nuevos datos a la lista
@@ -296,3 +314,71 @@ function agregarInforme() {
         cartelAmarillo.style.display = "block"
     }
 }
+
+
+
+
+
+function agregaCuadrosAgrupaciones(prueba_JSON) {
+    let agrupaciones = prueba_JSON.valoresTotalizadosPositivos.sort((a, b) => b.votos - a.votos);  // Ordena de mayor a menor
+    let idColor = -1;
+    let cadenaInnerhtml = "";
+    let cadenaInicial = `<div class="cuadro-Agrupaciones-centrado">
+      <div class="Agrupacion">`;
+  
+    let cadenaIterada = "";
+    if (agrupaciones) {
+      agrupaciones.forEach((agrupacion) => {
+        if (idColor < 6) {
+          idColor += 1;
+        }
+  
+        let indColor = idColor;
+        let tituloAgrupacion = agrupacion.nombreAgrupacion;
+        let cadenaTitulo = `<h6>${tituloAgrupacion}</h6><hl>`;
+        let partidos = agrupacion.listas;
+        let cadenaPartidos = "";
+  
+        partidos.forEach((partido) => {
+          let nombre = partido.nombre;
+          let porcentajeVotos = (parseFloat(partido.votos * 100) / parseFloat(agrupacion.votos));
+          let votos = ` <small>${partido.votos} votos</small>`;
+  
+          cadenaPartidos += `<p>${nombre} <span>${votos}</span></p>
+            <div class="progress" style="background: var(--colorLiviano${indColor});">
+              <div class="progress-bar" style="width:${porcentajeVotos}%; background: var(--colorPleno${indColor});">
+                <span class="progress-bar-text">${porcentajeVotos.toFixed(2)}%</span>
+              </div>
+            </div>`;
+        });
+        cadenaIterada += cadenaTitulo + cadenaPartidos;
+      });
+  
+      let cadenaFinal = `</div>
+        </div>`;
+  
+      cadenaInnerhtml = cadenaInicial + cadenaIterada + cadenaFinal;
+      $divAgrupaciones.innerHTML = "";
+      $divAgrupaciones.innerHTML = cadenaInnerhtml;
+    }
+  }
+
+  function agregarResumenVotos(json) {
+    $divResumenVotos.innerHTML = ``;
+    let agrupaciones = json.valoresTotalizadosPositivos.sort((a, b) => b.votos - a.votos);  //!ordena de mayor a menor
+    let barras = ``;
+    let cadenaInnerhtml = ``;
+    let cont = 0;
+    let cadenaInicial = `<div class="chart-wrap horizontal">
+    <div class="grid">`;
+    agrupaciones.forEach((agrupacion) => {
+      if (cont < 7) {
+        barras += `<div class="bar" id="partido-${cont}" style="--bar-value:${parseFloat(agrupacion.votosPorcentaje) * 2}%;background-color: var(${colorPleno[cont]});" data-name="${agrupacion.nombreAgrupacion}";></div>`;
+      }
+      cont++;
+    });
+    let cadenaFinal = `</div>
+    </div>`;
+    cadenaInnerhtml = cadenaInicial + barras + cadenaFinal;
+    $divResumenVotos.innerHTML = cadenaInnerhtml;
+  }
