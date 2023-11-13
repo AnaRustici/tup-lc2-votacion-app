@@ -290,13 +290,13 @@ function agregarInforme() {
         let vDistrito= selectDistrito.value;
         let vSeccionProvincial= 0;
         let vSeccionId= selectSeccion.value;
-        let vCircuitoId= "";
-        let vMesaId= "";
+        let vCircuitoId= '';
+        let vMesaId= '';
         let vAnioSeleccionado= anioString;
         let vCargoSeleccionado= categoriaString;
         let vDistritoSeleccionado= distritoString;
         let seccionSeleccionada= seccionString;
-        let nuevosDatos = `${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${vSeccionId}|${vCircuitoId}|${vMesaId}|${vAnioSeleccionado}|${vCargoSeleccionado}|${vDistritoSeleccionado}|${seccionSeleccionada}`
+        let nuevosDatos = `|${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${vSeccionId}|${vCircuitoId}|${vMesaId}|${vAnioSeleccionado}|${vCargoSeleccionado}|${vDistritoSeleccionado}|${seccionSeleccionada}`
         console.log( "CONSOLE LOG DE LOS DATOS DEL NUEVO INFORME: " + nuevosDatos)
 
     // Verificar si los nuevos datos ya existen en la lista
@@ -310,13 +310,10 @@ function agregarInforme() {
         cartelVerde.style.display = "block"
     } else {
         ocultarCarteles();
-        cartelAmarillo.innerHTML='<i class="fa fa-exclamation"></i>Los datos ya están en la lista de informes, no se han agregado.'
+        cartelAmarillo.innerHTML='<i class="fa fa-exclamation"> </i>Los datos ya están en la lista de informes, no se han agregado.'
         cartelAmarillo.style.display = "block"
     }
 }
-
-
-
 
 
 function agregaCuadrosAgrupaciones(prueba_JSON) {
