@@ -84,59 +84,20 @@ function crearInforme(resultados) {
     try {
         let agrupaciones = resultados.valoresTotalizadosPositivos;
         console.log("AGRUPACIONES: "+ agrupaciones)
-        const tr = document.createElement('tr');
+        /*
+        CUERPO DEL CUADRO AGRUPACIONES
 
-        const tdProvincia = document.createElement('td');
-        
-
-        const tdEleccion = document.createElement('td');
-
-        const h4Eleccion = document.createElement('h4');
-        h4Eleccion.textContent = `Elecciones ${anioEleccion} | ${eleccion}`;
-
-        const pEleccion = document.createElement('p');
-        pEleccion.classList.add('texto-path');
-        pEleccion.textContent = `${anioEleccion}>${eleccion}>${cargoSeleccionado}>${distritoSeleccionado}>${seccionSeleccionada}`
-
-        tdEleccion.appendChild(h4Eleccion);
-        tdEleccion.appendChild(pEleccion);
-
-        const tdCuadritos = document.createElement('td');
-
-        const tdDatos = document.createElement('td');
+        */
         
         agrupaciones.forEach(agrupacion => {
             //ASI SE ACCEDE A LA INFORMACION DE CADA AGRUPACION
             console.log(`${agrupacion.nombreAgrupacion}, ${agrupacion.votosPorcentaje}, ${agrupacion.votos}`);
-
-            const p1Partido = document.createElement('p');
-            p1Partido.textContent = agrupacion.nombreAgrupacion;
-
-            const spanP1Partido = document.createElement('span'); 
-            const porcentajeVotos = `${agrupacion.votosPorcentaje}%`; 
-            spanP1Partido.textContent = porcentajeVotos;
-            spanP1Partido.classList.add('porcentajes'); 
-
-            const p2Partido = document.createElement('p'); 
-
-            const spanP2Partido = document.createElement('span');
-            spanP2Partido.textContent = `${agrupacion.votos} votos`; 
-            spanP2Partido.classList.add('porcentajes');
-
-            tdDatos.appendChild(p1Partido);
-            tdDatos.appendChild(p2Partido);
-
-            p1Partido.appendChild(spanP1Partido);
-            p2Partido.appendChild(spanP2Partido);
+           
         });
 
-        tr.appendChild(tdProvincia);
-        tr.appendChild(tdEleccion);
-        tr.appendChild(tdCuadritos);
-        tr.appendChild(tdDatos);
 
-        informesContainer.appendChild(tr);
     } catch (error) {
+        console.log("ERROR: " + error)
         console.log(resultados)
         console.log("No se creo el informe porque el resultado esta vacio")
     }
