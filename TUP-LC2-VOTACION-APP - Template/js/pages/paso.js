@@ -18,11 +18,20 @@ let electores = document.getElementById('electores-numero');
 let participacionSobreEscrutado = document.getElementById('participacion-sobre-escrutado');
 let svgMapa = document.getElementById('svg-mapa');
 let svgTituloMapa = document.getElementById("titulo-svg");
+let divAgrupaciones = document.getElementById("div-agrupaciones");
 let anioString = "";
 let categoriaString = "";
 let distritoString = "";
 let seccionString = "";
 
+//variables para crear elementos
+/*
+let divTituloAgrupaciones = `<div class="nombre-agrupacion">${nombreAgrupacion[i]}<hr></div>`
+let divTituloLista = `<div class="div-agrupaciones"><div><b>${nombreLista[i]}</b></div>`  //crear estas variables internas, dentro de la variable
+let divVotosyPorcentaje = `<div>${porcentajeAgrupaciones[i]}<br>${votosAgrupaciones[i]}votos</div>`
+let BarraTrasera = `<div class="progress" style="background: var(${coloresGraficaLivianos[i]});"></div>`
+let BarraDelantera = `<div class="progress-bar" style="width:75%; background: var(${coloresGraficaPlenos[i]});"><span class="progress-bar-text">${porcentajeListas[i]}</span></div>`
+*/
 let coloresGraficaPlenos = [
     getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo'),
     getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste'),
@@ -71,6 +80,7 @@ const provinciasSVG = [
 
 let datosAPI = [];
 let datosCargos = [];
+var objetosPartidos = [];
 
 var primeraOpcion = document.createElement('option');
 document.addEventListener('DOMContentLoaded', function () {
@@ -207,6 +217,10 @@ async function validarSelects() {
         selectSeccion.value !== '0';
 }
 
+function crearBarras(){
+    divAgrupaciones.style.display = "none";
+}
+
 async function consultarResultados() {
     if (await validarSelects()) {
         ocultarCarteles();
@@ -245,6 +259,12 @@ async function consultarResultados() {
                         //modificamos el html svg con el arreglo de objetos posicion i-1 porque cuando llega ya es el siguiente
                     }
                 }
+                //guardamos el objeto valores totalizados positivos en un arreglo
+                var valoresPositivos = resultados.valoresTotalizadosPositivos;
+                objetosPartidos.push(valoresPositivos);
+                crearBarras();
+                
+
             } else {    
                 ocultarCarteles();
                 ocultarCarga();
@@ -263,6 +283,7 @@ async function consultarResultados() {
     }
     
 }
+
 function agregarInforme() {
     // Obtener la lista de informes almacenados en localStorage bajo la clave 'INFORMES'
     let informes;
@@ -316,7 +337,22 @@ function agregarInforme() {
 }
 
 
-function agregaCuadrosAgrupaciones(prueba_JSON) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function agregaCuadrosAgrupaciones() {
     let agrupaciones = prueba_JSON.valoresTotalizadosPositivos.sort((a, b) => b.votos - a.votos);  // Ordena de mayor a menor
     let idColor = -1;
     let cadenaInnerhtml = "";
@@ -379,3 +415,4 @@ function agregaCuadrosAgrupaciones(prueba_JSON) {
     cadenaInnerhtml = cadenaInicial + barras + cadenaFinal;
     $divResumenVotos.innerHTML = cadenaInnerhtml;
   }
+
