@@ -1,13 +1,30 @@
 let textoAmarillo = document.getElementById('texto-amarillo');
 let textoVerde = document.getElementById('texto-verde');
 let textoRojo = document.getElementById('texto-rojo');
+let tabla = document.getElementById('tabla-body');
+let layer1 = document.getElementById('Layer_1')
+let eleccion = "";
+let anioEleccion = "";
+let tipoRecuento = "";
+let tipoEleccion = "";
+let categoriaId = "";
+let distritoId = "";
+let seccionProvincialId = "";
+let seccionId = "";
+let circuitoId = "";
+let mesaId = "";
+let añoSeleccionado = "";
+let cargoSeleccionado = "";
+let distritoSeleccionado = "";
+let seccionSeleccionada = "";
+
 const mensajeCargando = document.getElementById('texto-cargando');
 const informesContainer = document.getElementById('tabla-informes');
 
-function ocultarCarteles(){
+function ocultarCarteles() {
     textoVerde.style.display = 'none';
-    textoAmarillo.style.display = 'none';
-    textoRojo.style.display = 'none';
+    textoAmarillo.style.visibility = 'hidden';
+    textoRojo.style.visibility = 'hidden';
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -22,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         mostrarTexto(textoAmarillo, "Debe agregar un INFORME desde Paso o Generales primero!");
     }
 });
+
 function mostrarTexto(tipoTexto, mensaje) {
     tipoTexto.textContent = mensaje;
     tipoTexto.style.display = 'block';
@@ -61,15 +79,13 @@ async function consultarResultados(url) {
         console.log('entra en el try de consultar resultados')
         mensajeCargando.style.visibility = 'visible';
         let response = await fetch(url);
-        console.log('hizo el fetch');
         if (response.ok) {
-            console.log('respuesta ok') 
+            console.log('respuesta ok')
             mensajeCargando.style.visibility = 'hidden';
             resultados = await response.json();
-            console.log(resultados);
             crearInforme(resultados);
         } else {
-           textojeRojo.style.display = "block"
+            textoRojo.style.display = "block"
         }
     }
     catch (err) {
@@ -82,23 +98,95 @@ function crearInforme(resultados) {
     console.log('resultados dentro de crear informe: ', resultados);
     console.log(resultados.valoresTotalizadosPositivos);
     try {
+        const nuevoTr = document.createElement('tr');
         let agrupaciones = resultados.valoresTotalizadosPositivos;
-        console.log("AGRUPACIONES: "+ agrupaciones)
-        /*
-        CUERPO DEL CUADRO AGRUPACIONES
 
-        */
-        
+        // CREO TD PARA MAPA
+        let tdMapa = document.createElement('td');
+        tdMapa.classList.add('td-body');
+        tdMapa.textContent = 'MAPA';
+
+        // CREO TD PARA ELECCION 
+        let tdEleccion = document.createElement('td');
+        tdEleccion.classList.add('td-body');
+        tdEleccion.innerHTML = `<p class="texto-elecciones-chico">Elecciones ${anioEleccion} | ${eleccion}</p>
+        <p class="texto-path-chico">${anioEleccion} > ${eleccion} > ${cargoSeleccionado} > ${distritoSeleccionado}</p>`;
+
+
+        // CREO TD PARA DATOS GENERALES 
+        let tdDatosGenerales = document.createElement('td');
+        tdDatosGenerales.classList.add('td-body');
+
+        let cuadroElectores = document.getElementById('electores');
+        let cuadroElectoresTexto = document.getElementById('mesas-electores-texto');
+        cuadroElectoresTexto.textContent = resultados.estadoRecuento.cantidadElectores;
+
+        let cuadroEscrutadas = document.getElementById('mesas-escrutadas');
+        let cuadroEscrutadasTexto = document.getElementById('mesas-escrutadas-texto');
+        cuadroEscrutadasTexto.textContent = resultados.estadoRecuento.mesasTotalizadas;
+
+        let cuadroPart = document.getElementById('part-escrutado');
+        let cuadroPartTexo = document.getElementById('part-escrutado-texto')
+        cuadroPartTexo.innerHTML = cuadroPartTexo + resultados.estadoRecuento.participacionPorcentaje;
+
+
+        // CREO TD PARA AGRUPACIONES
+        let tdAgrupaciones = document.createElement('td');
+        tdAgrupaciones.classList.add('td-body-agrupacion');
+
+        // Crear div grande que contiene todas las agrupaciones por fila
+        let divAgrupacionesFila = document.createElement('div');
+        divAgrupacionesFila.classList.add('fila-agrupacion-grande');
+
+        // Itero sobre las agrupaciones y las agrego al div grande
         agrupaciones.forEach(agrupacion => {
-            //ASI SE ACCEDE A LA INFORMACION DE CADA AGRUPACION
-            console.log(`${agrupacion.nombreAgrupacion}, ${agrupacion.votosPorcentaje}, ${agrupacion.votos}`);
-           
+            // Crear div contenedor por fila
+            let divFila = document.createElement('div');
+            divFila.classList.add('fila-agrupacion');
+
+            // Crear div para el nombre de la agrupación
+            let divNombreAgrupacion = document.createElement('div');
+            let nombreAgrupacion = document.createElement('b');
+            nombreAgrupacion.textContent = agrupacion.nombreAgrupacion;
+            divNombreAgrupacion.appendChild(nombreAgrupacion);
+
+            // Crear div para los votos de la agrupación
+            let divVotosAgrupacion = document.createElement('div');
+            divVotosAgrupacion.innerHTML = `${agrupacion.votos} votos <br> ${agrupacion.votosPorcentaje}%`;
+
+            // Agregar divs de nombre y votos al contenedor de fila 
+            divFila.appendChild(divNombreAgrupacion);
+            divFila.appendChild(divVotosAgrupacion); // Ahora ambos divs están en el mismo contenedor
+
+            // Agregar fila al div grande de agrupaciones
+            divAgrupacionesFila.appendChild(divFila);
         });
 
 
+
+        tdDatosGenerales.innerHTML = `
+            <div class="datos">
+                <div id="mesas-escrutadas">${cuadroEscrutadas.innerHTML} <br> ${cuadroEscrutadasTexto}</div>
+                <div id="electores">${cuadroElectores.innerHTML} <br> ${cuadroElectoresTexto}</div>
+                <div id="part-escrutado">${cuadroPartTexo.textContent}</div>
+            </div>`;
+
+        // Agregar div grande de agrupaciones a la celda
+        tdAgrupaciones.appendChild(divAgrupacionesFila);
+        // Agregar celdas a la fila
+        nuevoTr.appendChild(tdMapa);
+        nuevoTr.appendChild(tdEleccion);
+        nuevoTr.appendChild(tdDatosGenerales);
+        nuevoTr.appendChild(tdAgrupaciones);
+
+        // Agregar fila a la tabla
+        tabla.appendChild(nuevoTr);
+
     } catch (error) {
-        console.log("ERROR: " + error)
-        console.log(resultados)
-        console.log("No se creo el informe porque el resultado esta vacio")
+        console.log("ERROR: " + error);
+        console.log(resultados);
+        console.log("No se creó el informe porque el resultado está vacío");
     }
 }
+
+
