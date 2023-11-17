@@ -23,6 +23,7 @@ let anioString = "";
 let categoriaString = "";
 let distritoString = "";
 let seccionString = "";
+let auxiliar = 0;
 
 let cuadroBarrasPartidos = document.getElementById('mostrar-grafica');
 cuadroBarrasPartidos.style.display = 'none';
@@ -251,8 +252,9 @@ async function consultarResultados() {
                 mesasEscrutadas.innerHTML = `Mesas escrutadas ${resultados.estadoRecuento.mesasTotalizadas}`;
                 electores.innerHTML = `Electores ${resultados.estadoRecuento.cantidadElectores}`;
                 participacionSobreEscrutado.innerHTML = `Participacion sobre escrutado ${resultados.estadoRecuento.participacionPorcentaje}%`;
-                
+
                 agregaCuadrosAgrupaciones();
+                
 
                 for(i=0 ; i<25 ; i++){
                     if(distritoId == i){
@@ -264,6 +266,7 @@ async function consultarResultados() {
                 }
 
                 agregarResumenVotos();
+                
                 
                 //guardamos el objeto valores totalizados positivos en un arreglo
                 var valoresPositivos = resultados.valoresTotalizadosPositivos;
@@ -342,11 +345,18 @@ function agregarInforme() {
 
 
 function agregaCuadrosAgrupaciones() {
+    
+    //if para validar que no este creado previamente ya algun div. si ya hay uno lo borra (para que no se junten)
+    if(auxiliar >= 1){
+        nuevoDivEliminado = document.getElementById("nuevo-div");
+        nuevoDivEliminado.remove();
+    }
     let cuadroAgrupaciones = document.getElementsByClassName('info-agrupaciones')[0];
     let nuevoDiv = document.createElement('div');
     
     resultados.valoresTotalizadosPositivos.forEach((agrup, indice) => {
         let divPartido = document.createElement('div');
+
         divPartido.innerHTML = `<div class="nombre-agrupacion">${agrup.nombreAgrupacion}</div>`;
         
         let elementoHR = document.createElement('hr');
@@ -385,11 +395,20 @@ function agregaCuadrosAgrupaciones() {
         divPartido.appendChild(divAgrupaciones); // Anidamos divAgrupaciones dentro de divPartido
         nuevoDiv.appendChild(divPartido);
     });
-    
+
+    //agregamos un ID para luego poder validarlo en el if al principio de la funcion
+    nuevoDiv.id = "nuevo-div"
     cuadroAgrupaciones.appendChild(nuevoDiv);
+    auxiliar ++;
 }
 
 function agregarResumenVotos() {
+    /*if(auxiliar >= 1){
+        barrasEliminado = document.getElementById("barras-nuevo");
+        barrasEliminado.remove();
+    }*/
+    let cuadroBarrasNuevo = document.createElement("div");
+    cuadroBarrasNuevo.id = "barras-nuevo";
     let cuadroBarras = document.getElementsByClassName('grid')[0];
 
     resultados.valoresTotalizadosPositivos.slice(0, 7).forEach((agrup, indice) => {
@@ -402,11 +421,12 @@ function agregarResumenVotos() {
         barra.innerHTML = `
             <div class="bar" style="--bar-value: ${porcentajeVotos}%; --bar-color: ${colorBarra};"
                 data-name="${tituloPartido}" title="Partido ${tituloPartido} ${porcentajeVotos}%">
-            </div>
-        `;
+            </div>`;
 
+        
         cuadroBarras.appendChild(barra);
-
+        //cuadroBarrasNuevo.appendChild(cuadroBarras);
+        auxiliar ++;
     })
     cuadroBarrasPartidos.style.display = 'block';
 }
