@@ -2,7 +2,6 @@ let textoAmarillo = document.getElementById('texto-amarillo');
 let textoVerde = document.getElementById('texto-verde');
 let textoRojo = document.getElementById('texto-rojo');
 let tabla = document.getElementById('tabla-body');
-let layer1 = document.getElementById('Layer_1')
 let eleccion = "";
 let anioEleccion = "";
 let tipoRecuento = "";
@@ -19,7 +18,6 @@ let distritoSeleccionado = "";
 let seccionSeleccionada = "";
 
 const mensajeCargando = document.getElementById('texto-cargando');
-const informesContainer = document.getElementById('tabla-informes');
 
 function ocultarCarteles() {
     textoVerde.style.display = 'none';
@@ -31,10 +29,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     ocultarCarteles();
     if (localStorage.getItem('INFORMES')) {
         informes = JSON.parse(localStorage.getItem('INFORMES'));
-        const promises = informes.map(datos => {
+
+        for (const datos of informes) {
             const url = armarUrl(datos);
-            return consultarResultados(url);
-        });
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    mensajeCargando.style.visibility = 'hidden';
+                    const resultados = await response.json();
+                    crearInforme(resultados);
+                } else {
+                    textoRojo.style.display = "block";
+                }
+            } catch (err) {
+                textoRojo.style.display = "block";
+            }
+        }
     } else {
         mostrarTexto(textoAmarillo, "Debe agregar un INFORME desde Paso o Generales primero!");
     }
@@ -44,7 +54,16 @@ function mostrarTexto(tipoTexto, mensaje) {
     tipoTexto.textContent = mensaje;
     tipoTexto.style.display = 'block';
 }
+
 function armarUrl(data) {
+    // ... (mismo código)
+}
+
+function crearInforme(resultados) {
+    // ... (mismo código)
+}
+function armarUrl(data) {
+    console.log("ESTA ES LA DATA DE LA URL A USAR: " + data)
     let datos = data.split('|');
     anioEleccion = datos[1];
     tipoRecuento = datos[2];
@@ -67,9 +86,8 @@ function armarUrl(data) {
     }
     let urlSinParametros = `https://resultados.mininterior.gob.ar/api/resultados/getResultados`;
     let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=${circuitoId}&mesaId=${mesaId}`;
-
+    console.log("ESTOS SON LOS PARAMETROS DE LA URL" + parametros)
     let url = urlSinParametros + parametros;
-    console.log(url);
     return url;
 }
 
@@ -79,16 +97,16 @@ async function consultarResultados(url) {
         console.log('entra en el try de consultar resultados')
         mensajeCargando.style.visibility = 'visible';
         let response = await fetch(url);
+        console.log("TIENE Q ANDAR EL RESPONSE...")
         if (response.ok) {
-            console.log('respuesta ok')
+            console.log('respuesta ok' + response)
             mensajeCargando.style.visibility = 'hidden';
             resultados = await response.json();
             crearInforme(resultados);
         } else {
             textoRojo.style.display = "block"
         }
-    }
-    catch (err) {
+    } catch (err) {
         textoRojo.style.display = "block"
     }
 
@@ -98,6 +116,7 @@ function crearInforme(resultados) {
     console.log('resultados dentro de crear informe: ', resultados);
     console.log(resultados.valoresTotalizadosPositivos);
     try {
+
         const nuevoTr = document.createElement('tr');
         let agrupaciones = resultados.valoresTotalizadosPositivos;
 
@@ -105,13 +124,6 @@ function crearInforme(resultados) {
         let tdMapa = document.createElement('td');
         tdMapa.classList.add('td-body');
         tdMapa.textContent = 'MAPA';
-
-        // CREO TD PARA ELECCION 
-        let tdEleccion = document.createElement('td');
-        tdEleccion.classList.add('td-body');
-        tdEleccion.innerHTML = `<p class="texto-elecciones-chico">Elecciones ${anioEleccion} | ${eleccion}</p>
-        <p class="texto-path-chico">${anioEleccion} > ${eleccion} > ${cargoSeleccionado} > ${distritoSeleccionado}</p>`;
-
 
         // CREO TD PARA DATOS GENERALES 
         let tdDatosGenerales = document.createElement('td');
@@ -125,14 +137,14 @@ function crearInforme(resultados) {
         let cuadroEscrutadasTexto = document.getElementById('mesas-escrutadas-texto');
         cuadroEscrutadasTexto.textContent = resultados.estadoRecuento.mesasTotalizadas;
 
-        let cuadroPart = document.getElementById('part-escrutado');
         let cuadroPartTexo = document.getElementById('part-escrutado-texto')
         cuadroPartTexo.innerHTML = cuadroPartTexo + resultados.estadoRecuento.participacionPorcentaje;
-
 
         // CREO TD PARA AGRUPACIONES
         let tdAgrupaciones = document.createElement('td');
         tdAgrupaciones.classList.add('td-body-agrupacion');
+        let tdEleccion = document.createElement('td');
+        tdEleccion.classList.add('td-body');
 
         // Crear div grande que contiene todas las agrupaciones por fila
         let divAgrupacionesFila = document.createElement('div');
@@ -154,6 +166,12 @@ function crearInforme(resultados) {
             let divVotosAgrupacion = document.createElement('div');
             divVotosAgrupacion.innerHTML = `${agrupacion.votos} votos <br> ${agrupacion.votosPorcentaje}%`;
 
+            // Declarar variables dentro del bucle y actualizarlas
+            let anioEleccion = agrupacion.anioEleccion;
+            let eleccion = agrupacion.tipoEleccion;
+            let cargoSeleccionado = agrupacion.cargoSeleccionado;
+            let distritoSeleccionado = agrupacion.distritoSeleccionado;
+
             // Agregar divs de nombre y votos al contenedor de fila 
             divFila.appendChild(divNombreAgrupacion);
             divFila.appendChild(divVotosAgrupacion); // Ahora ambos divs están en el mismo contenedor
@@ -161,8 +179,9 @@ function crearInforme(resultados) {
             // Agregar fila al div grande de agrupaciones
             divAgrupacionesFila.appendChild(divFila);
         });
-
-
+        tdEleccion.classList.add('td-body');
+        tdEleccion.innerHTML = `<p class="texto-elecciones-chico">Elecciones ${anioEleccion} | ${eleccion}</p>
+        <p class="texto-path-chico">${anioEleccion} > ${eleccion} > ${cargoSeleccionado} > ${distritoSeleccionado}</p>`;
 
         tdDatosGenerales.innerHTML = `
             <div class="datos">
@@ -181,6 +200,7 @@ function crearInforme(resultados) {
 
         // Agregar fila a la tabla
         tabla.appendChild(nuevoTr);
+        console.log('===========================================================================================================================')
 
     } catch (error) {
         console.log("ERROR: " + error);
@@ -188,5 +208,3 @@ function crearInforme(resultados) {
         console.log("No se creó el informe porque el resultado está vacío");
     }
 }
-
-
