@@ -236,9 +236,11 @@ main {
     padding: 15px 15px;
     margin-bottom: 15px;
     height: 325px;
+}
+#scroll {
+    max-height: 270px;
     overflow-y: scroll;
 }
-
 
 .info-agrupaciones {
     display: flex;
@@ -277,6 +279,7 @@ main {
     margin-left: 10px;
     width: 30%;
     margin-bottom: 15px;
+    height: 360px;
 }
 
 
