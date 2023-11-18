@@ -105,6 +105,8 @@ async function consultarResultados(url) {
 }
 
 function crearInforme(resultados) {
+    let primerTr = document.getElementById('primer-tr');
+    primerTr.style.display = 'none'
     console.log('resultados dentro de crear informe: ', resultados);
     try {
         const nuevoTr = document.createElement('tr');
@@ -122,16 +124,16 @@ function crearInforme(resultados) {
 
         let cuadroEscrutadas = document.getElementById('mesas-escrutadas');
         let cuadroEscrutadasTexto = document.getElementById('mesas-escrutadas-texto')
-        cuadroEscrutadasTexto.textContent =  resultados.estadoRecuento.mesasTotalizadas + " Mesas escrutadas";
+        cuadroEscrutadasTexto.textContent = "Mesas escrutadas " + resultados.estadoRecuento.mesasTotalizadas;
 
 
         let cuadroElectores = document.getElementById('electores');
         let cuadroElectoresTexto = document.getElementById('mesas-electores-texto');
-        cuadroElectoresTexto.textContent = resultados.estadoRecuento.cantidadElectores + " Electores";
+        cuadroElectoresTexto.textContent = "Electores " + resultados.estadoRecuento.cantidadElectores;
 
         let cuadroParticipacion= document.getElementById('part-escrutado')
         let cuadroParticipacinTexto = document.getElementById('part-escrutado-texto')
-        cuadroParticipacinTexto.textContent = resultados.estadoRecuento.participacionPorcentaje +"% Participacion escrutado";
+        cuadroParticipacinTexto.textContent = "Participacion sobre escrutado "+resultados.estadoRecuento.participacionPorcentaje +"%";
 
     
         // CREO TD PARA AGRUPACIONES
