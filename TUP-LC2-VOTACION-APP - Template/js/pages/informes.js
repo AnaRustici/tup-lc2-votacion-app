@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
     } else {
-        mostrarTexto(textoAmarillo, "Debe agregar un INFORME desde Paso o Generales primero!");
+        mostrarTexto(textoAmarillo, "Debes crear minimo un informe en paso o generales!");
     }
 });
 
@@ -55,13 +55,6 @@ function mostrarTexto(tipoTexto, mensaje) {
     tipoTexto.style.display = 'block';
 }
 
-function armarUrl(data) {
-    // ... (mismo código)
-}
-
-function crearInforme(resultados) {
-    // ... (mismo código)
-}
 function armarUrl(data) {
     console.log("ESTA ES LA DATA DE LA URL A USAR: " + data)
     let datos = data.split('|');
