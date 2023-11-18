@@ -57,7 +57,7 @@ function mostrarTexto(tipoTexto, mensaje) {
 
 function armarUrl(data) {
     console.log("ESTA ES LA DATA DE LA URL A USAR: " + data)
-    let datos = data.split('|');
+    let datos = data.split('|'); 
     anioEleccion = datos[1];
     tipoRecuento = datos[2];
     tipoEleccion = datos[3];
@@ -79,7 +79,6 @@ function armarUrl(data) {
     }
     let urlSinParametros = `https://resultados.mininterior.gob.ar/api/resultados/getResultados`;
     let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=${circuitoId}&mesaId=${mesaId}`;
-    console.log("ESTOS SON LOS PARAMETROS DE LA URL" + parametros)
     let url = urlSinParametros + parametros;
     return url;
 }
@@ -107,9 +106,7 @@ async function consultarResultados(url) {
 
 function crearInforme(resultados) {
     console.log('resultados dentro de crear informe: ', resultados);
-    console.log(resultados.valoresTotalizadosPositivos);
     try {
-
         const nuevoTr = document.createElement('tr');
         let agrupaciones = resultados.valoresTotalizadosPositivos;
 
@@ -122,17 +119,21 @@ function crearInforme(resultados) {
         let tdDatosGenerales = document.createElement('td');
         tdDatosGenerales.classList.add('td-body');
 
-        let cuadroElectores = document.getElementById('electores');
-        let cuadroElectoresTexto = document.getElementById('mesas-electores-texto');
-        cuadroElectoresTexto.textContent = resultados.estadoRecuento.cantidadElectores;
 
         let cuadroEscrutadas = document.getElementById('mesas-escrutadas');
-        let cuadroEscrutadasTexto = document.getElementById('mesas-escrutadas-texto');
-        cuadroEscrutadasTexto.textContent = resultados.estadoRecuento.mesasTotalizadas;
+        let cuadroEscrutadasTexto = document.getElementById('mesas-escrutadas-texto')
+        cuadroEscrutadasTexto.textContent =  resultados.estadoRecuento.mesasTotalizadas + " Mesas escrutadas";
 
-        let cuadroPartTexo = document.getElementById('part-escrutado-texto')
-        cuadroPartTexo.innerHTML = cuadroPartTexo + resultados.estadoRecuento.participacionPorcentaje;
 
+        let cuadroElectores = document.getElementById('electores');
+        let cuadroElectoresTexto = document.getElementById('mesas-electores-texto');
+        cuadroElectoresTexto.textContent = resultados.estadoRecuento.cantidadElectores + " Electores";
+
+        let cuadroParticipacion= document.getElementById('part-escrutado')
+        let cuadroParticipacinTexto = document.getElementById('part-escrutado-texto')
+        cuadroParticipacinTexto.textContent = resultados.estadoRecuento.participacionPorcentaje +"% Participacion escrutado";
+
+    
         // CREO TD PARA AGRUPACIONES
         let tdAgrupaciones = document.createElement('td');
         tdAgrupaciones.classList.add('td-body-agrupacion');
@@ -147,21 +148,23 @@ function crearInforme(resultados) {
         agrupaciones.forEach(agrupacion => {
             // Crear div contenedor por fila
             let divFila = document.createElement('div');
-            divFila.classList.add('fila-agrupacion');
+            divFila.classList.add('agrupacion');
 
             // Crear div para el nombre de la agrupación
             let divNombreAgrupacion = document.createElement('div');
             let nombreAgrupacion = document.createElement('b');
+            divNombreAgrupacion.classList.add('nombre-agrupacion');
             nombreAgrupacion.textContent = agrupacion.nombreAgrupacion;
             divNombreAgrupacion.appendChild(nombreAgrupacion);
 
             // Crear div para los votos de la agrupación
             let divVotosAgrupacion = document.createElement('div');
-            divVotosAgrupacion.innerHTML = `${agrupacion.votos} votos <br> ${agrupacion.votosPorcentaje}%`;
+            divVotosAgrupacion.classList.add('votos')
+            divVotosAgrupacion.innerHTML = `${agrupacion.votosPorcentaje}% <br> ${agrupacion.votos}votos`;
 
             // Declarar variables dentro del bucle y actualizarlas
             let anioEleccion = agrupacion.anioEleccion;
-            let eleccion = agrupacion.tipoEleccion;
+            let eleccion = agrupacion.tipoEleccion; 
             let cargoSeleccionado = agrupacion.cargoSeleccionado;
             let distritoSeleccionado = agrupacion.distritoSeleccionado;
 
@@ -178,9 +181,9 @@ function crearInforme(resultados) {
 
         tdDatosGenerales.innerHTML = `
             <div class="datos">
-                <div id="mesas-escrutadas">${cuadroEscrutadas.innerHTML} <br> ${cuadroEscrutadasTexto}</div>
-                <div id="electores">${cuadroElectores.innerHTML} <br> ${cuadroElectoresTexto}</div>
-                <div id="part-escrutado">${cuadroPartTexo.textContent}</div>
+                <div id="mesas-escrutadas">${cuadroEscrutadas.innerHTML}</div>
+                <div id="electores"> ${cuadroElectores.innerHTML}</div>
+                <div id="part-escrutado">${cuadroParticipacion.innerHTML} </div>
             </div>`;
 
         // Agregar div grande de agrupaciones a la celda

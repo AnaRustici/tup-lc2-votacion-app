@@ -109,21 +109,25 @@
     display: grid;
     border: 1px solid var(--borde-Grilla);
     border-radius: 15px;
-    width: 1024px;
+    width: 1150px;
     margin: 0px auto 50px auto;
     border-collapse: collapse;
     background-color: rgb(250, 250, 250);
     border-bottom: 1px solid var(--borde-inferior-Grilla);
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .fila-agrupacion-grande{
     max-height: 200px;
+
     overflow-y: auto;
 }
 .fila-agrupacion{
     padding: 0px 0px 30px;
 }
-
+.fila-agrupacion-grande div{
+    display: flex;
+}
 thead {
     color: var(--titulo-Grilla);
     font-size: 14px;
@@ -218,10 +222,11 @@ tbody {
     color: #FFF;
 }
 
-#div-agrupacion div{
+.div-agrupacion div{
     display: flex;
 }
-.agrupacion {
+.fila-agrupacion {
+    display: flex;
     max-height: 200px;
     overflow-y: auto;
 
@@ -236,6 +241,7 @@ tbody {
 }
 .agrupacion {
     padding-bottom: 30px;
+    padding-right: 20px;
 }
 
 .td-body {
@@ -244,4 +250,17 @@ tbody {
     padding: 5px;
     font-size: 10px;
     color: var(--textos);
+    overflow: hidden;
+    max-width: 400px; 
+}
+
+
+.nombre-agrupacion{
+    padding: 0px 70px 0px 20px;
+   
+}
+
+.votos {
+    display: block;
+
 }

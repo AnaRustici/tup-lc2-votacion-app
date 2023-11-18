@@ -255,16 +255,14 @@ async function consultarResultados() {
 
                 agregaCuadrosAgrupaciones();
                 
-
                 for(i=0 ; i<25 ; i++){
                     if(distritoId == i){
-                        
                         svgMapa.innerHTML = provinciasSVG[i-1].svg;
                         svgTituloMapa.innerHTML = provinciasSVG[i-1].provincia;
                         //modificamos el html svg con el arreglo de objetos posicion i-1 porque cuando llega ya es el siguiente
                     }
                 }
-
+                
                 agregarResumenVotos();
                 
                 

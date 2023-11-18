@@ -234,7 +234,7 @@ async function consultarResultados() {
                 subtituloPaso.innerHTML = `${anioEleccion} > Paso > ${categoriaString} > ${distritoString} > ${seccionString}`
                 resultados = await response.json();
                 ocultarCarga();
-                console.log(resultados)
+                console.log("RESULTADOS "+ resultados)
                 mesasEscrutadas.innerHTML = `Mesas escrutadas ${resultados.estadoRecuento.mesasTotalizadas}`;
                 electores.innerHTML = `Electores ${resultados.estadoRecuento.cantidadElectores}`;
                 participacionSobreEscrutado.innerHTML = `Participacion sobre escrutado ${resultados.estadoRecuento.participacionPorcentaje}%`;
@@ -277,36 +277,44 @@ function agregarInforme() {
     } else {
         informes = [];
     }
+    if (selectAnio.value === '0' || selectCargo.value === '0' || selectDistrito.value === '0' || selectSeccion.value === '0') {
+        cartelAmarillo.innerHTML='<i class="fa fa-exclamation"></i>Los campos deben estar llenos para agregar el informe.'
+        cartelAmarillo.style.display = "block"
+        return;
+    }
     anioString = selectAnio.options[selectAnio.selectedIndex].innerText;
     categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
     distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
-    seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
+    seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText; 
 
+        let vAnio = selectAnio.value;
+        let vTipoRecuento= tipoRecuento;
+        let vTipoEleccion= tipoEleccionn;
+        let vCategoriaId= selectCargo.value;
+        let vDistrito= selectDistrito.value;
+        let vSeccionProvincial= 0;
+        let vSeccionId= selectSeccion.value;
+        let vCircuitoId= '';
+        let vMesaId= '';
+        let vAnioSeleccionado= anioString;
+        let vCargoSeleccionado= categoriaString;
+        let vDistritoSeleccionado= distritoString;
+        let seccionSeleccionada= seccionString;
+        let nuevosDatos = `|${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${vSeccionId}|${vCircuitoId}|${vMesaId}|${vAnioSeleccionado}|${vCargoSeleccionado}|${vDistritoSeleccionado}|${seccionSeleccionada}`
+        console.log( "CONSOLE LOG DE LOS DATOS DEL NUEVO INFORME: " + nuevosDatos)
 
-    let nuevosDatos = {
-        vAnio: selectAnio.value,
-        vTipoRecuento: tipoRecuento,
-        vTipoEleccion: tipoEleccionn,
-        vCategoriaId: selectCargo.value,
-        vDistrito: selectDistrito.value,
-        vSeccionProvincial: 0,
-        vSeccionId: selectSeccion.value,
-        vCircuitoId: "",
-        vMesaId: "",
-        vAnioSeleccionado: anioString,
-        vCargoSeleccionado: categoriaString,
-        vDistritoSeleccionado: distritoString,
-        seccionSeleccionada: seccionString
-    };
-    console.log(nuevosDatos)
     // Verificar si los nuevos datos ya existen en la lista
     if (!informes.includes(JSON.stringify(nuevosDatos))) {
         // Si no existen, agregar los nuevos datos a la lista
         informes.push(JSON.stringify(nuevosDatos));
         // Guardar la lista actualizada en localStorage bajo la clave 'INFORMES'
         localStorage.setItem('INFORMES', JSON.stringify(informes));
+        ocultarCarteles();
         console.log('Datos guardados con éxito en la lista de informes.');
+        cartelVerde.style.display = "block"
     } else {
-        console.log('Los datos ya están en la lista de informes, no se han agregado.');
+        ocultarCarteles();
+        cartelAmarillo.innerHTML='<i class="fa fa-exclamation"> </i>Los datos ya están en la lista de informes, no se han agregado.'
+        cartelAmarillo.style.display = "block"
     }
 }
