@@ -401,12 +401,13 @@ function agregaCuadrosAgrupaciones() {
 }
 
 function agregarResumenVotos() {
-    /*if(auxiliar >= 1){
-        barrasEliminado = document.getElementById("barras-nuevo");
-        barrasEliminado.remove();
-    }*/
-    let cuadroBarrasNuevo = document.createElement("div");
-    cuadroBarrasNuevo.id = "barras-nuevo";
+    if(auxiliar >= 1){
+        let divMostrarGrafica = document.getElementById("mostrar-grafica");
+        let divGridNuevo = `<div class="grid"></div>`
+        divMostrarGrafica.innerHTML = divGridNuevo;
+    }
+    
+    
     let cuadroBarras = document.getElementsByClassName('grid')[0];
 
     resultados.valoresTotalizadosPositivos.slice(0, 7).forEach((agrup, indice) => {
@@ -423,7 +424,7 @@ function agregarResumenVotos() {
 
         
         cuadroBarras.appendChild(barra);
-        //cuadroBarrasNuevo.appendChild(cuadroBarras);
+        
         auxiliar ++;
     })
     cuadroBarrasPartidos.style.display = 'block';
