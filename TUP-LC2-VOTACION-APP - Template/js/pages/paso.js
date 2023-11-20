@@ -243,6 +243,7 @@ async function consultarResultados() {
             cargandoDatos.style.visibility = "visible";
             const response = await fetch(url + parametros);
             if (response.ok) {
+                cartelVerde.innerHTML = '<i class="fa fa-thumbs-up"></i> Datos filtrados con éxito.'
                 cartelVerde.style.display = 'block'
                 tituloPaso.innerHTML = `Elecciones ${anioEleccion} | Paso`
                 subtituloPaso.innerHTML = `${anioEleccion} > Paso > ${categoriaString} > ${distritoString} > ${seccionString}`
@@ -333,6 +334,7 @@ function agregarInforme() {
         localStorage.setItem('INFORMES', JSON.stringify(informes));
         ocultarCarteles();
         console.log('Datos guardados con éxito en la lista de informes.');
+        cartelVerde.innerHTML = '<i class="fa fa-thumbs-up"></i> Datos guardados en informes.'
         cartelVerde.style.display = "block"
     } else {
         ocultarCarteles();
