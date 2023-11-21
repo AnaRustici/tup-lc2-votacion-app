@@ -106,6 +106,7 @@ nav div select {
     color: var(--celeste);
     border: none;
     margin-left: 5px;
+    max-width: 150px;
 }
 
 label {

@@ -55,25 +55,19 @@ function ocultarCarteles() {
 document.addEventListener('DOMContentLoaded', async () => {
     ocultarCarteles();
     if (localStorage.getItem('INFORMES')) {
-        informes = JSON.parse(localStorage.getItem('INFORMES'));
+        let informes = JSON.parse(localStorage.getItem('INFORMES'));
+        // a la lista de informes le saco las comillas que aparecen al principio y al final
+        let informesSinComillas = informes.map(valor => valor.replace(/^"|"$/g, ''));
 
-        for (const datos of informes) {
-            const url = armarUrl(datos);
-            try {
-                const response = await fetch(url);
-                if (response.ok) {
-                    mensajeCargando.style.visibility = 'hidden';
-                    const resultados = await response.json();
-                    crearInforme(resultados);
-                } else {
-                    textoRojo.style.display = "block";
-                }
-            } catch (err) {
-                textoRojo.style.display = "block";
-            }
-        }
+        console.log("RESULTADO DE INFORMES: " + informesSinComillas);
+     
+        informesSinComillas.forEach(datos => {
+            let resultado = armarUrl(datos);
+            const url = resultado[0];
+            consultarResultados(url, resultado[1]);
+        });
     } else {
-        mostrarTexto(textoAmarillo, "Debes crear minimo un informe en paso o generales!");
+        mostrarTexto(textoAmarillo, "Debe agregar un INFORME desde Paso o Generales primero!");
     }
 });
 
@@ -85,19 +79,19 @@ function mostrarTexto(tipoTexto, mensaje) {
 function armarUrl(data) {
     console.log("ESTA ES LA DATA DE LA URL A USAR: " + data)
     let datos = data.split('|');
-    anioEleccion = datos[1];
-    tipoRecuento = datos[2];
-    tipoEleccion = datos[3];
-    categoriaId = datos[4];
-    distritoId = datos[5];
-    seccionProvincialId = datos[6];
-    seccionId = datos[7];
-    circuitoId = datos[8];
-    mesaId = datos[9];
-    añoSeleccionado = datos[10];
-    cargoSeleccionado = datos[11];
-    distritoSeleccionado = datos[12];
-    seccionSeleccionada = datos[13];
+    anioEleccion = datos[0];
+    tipoRecuento = datos[1];
+    tipoEleccion = datos[2];
+    categoriaId = datos[3];
+    distritoId = datos[4];
+    seccionProvincialId = datos[5];
+    seccionId = datos[6];
+    circuitoId = datos[7];
+    mesaId = datos[8];
+    añoSeleccionado = datos[9];
+    cargoSeleccionado = datos[10];
+    distritoSeleccionado = datos[11];
+    seccionSeleccionada = datos[12];
 
     if (tipoEleccion == 1) {
         eleccion = "Paso"
@@ -107,10 +101,12 @@ function armarUrl(data) {
     let urlSinParametros = `https://resultados.mininterior.gob.ar/api/resultados/getResultados`;
     let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=${circuitoId}&mesaId=${mesaId}`;
     let url = urlSinParametros + parametros;
-    return url;
+    let informacion = [anioEleccion, tipoEleccion, cargoSeleccionado, distritoSeleccionado, distritoId, seccionSeleccionada];
+
+    return [url, informacion];
 }
 
-async function consultarResultados(url) {
+async function consultarResultados(url, info) {
     console.log("URL UTILIZADA: " + url);
     try {
         console.log('entra en el try de consultar resultados')
@@ -121,7 +117,7 @@ async function consultarResultados(url) {
             console.log('respuesta ok' + response)
             mensajeCargando.style.visibility = 'hidden';
             resultados = await response.json();
-            crearInforme(resultados);
+            crearInforme(resultados, info);
         } else {
             textoRojo.style.display = "block"
         }
@@ -131,118 +127,117 @@ async function consultarResultados(url) {
 
 }
 
-function crearInforme(resultados) {
-    let primerTr = document.getElementById('primer-tr');
-    primerTr.style.display = 'none';
-    console.log('resultados dentro de crear informe: ', resultados);
+
+function crearInforme(resultados, info) {
+    let cuerpoTabla = document.getElementById('cuerpo-tabla');
+    let mesasEscrutadas = document.createElement('div');
+    let mesasEscrutadasSVG = document.getElementsByClassName("v-icon__component theme--light")[0].cloneNode(true);
+    let electores = document.createElement('div');
+    let electoresSVG = document.getElementsByClassName("v-icon__component theme--light")[1].cloneNode(true);
+    let participacionSobreEscrutado = document.createElement('div');
+    let participacionSobreEscrutadoSVG = document.getElementsByClassName("v-icon__component theme--light")[2].cloneNode(true);
+    let datosCuadros = document.createElement('div');
+
     try {
-        const nuevoTr = document.createElement('tr');
-        let agrupaciones = resultados.valoresTotalizadosPositivos;
+        let eleccion = '';
 
-        // CREO TD PARA MAPA
-        let tdMapa = document.createElement('td');
-        tdMapa.classList.add('td-body', 'td-mapa');
-        tdMapa.textContent = 'MAPA';
-
-        // CREO TD PARA DATOS GENERALES 
-        let tdDatosGenerales = document.createElement('td');
-        tdDatosGenerales.classList.add('td-body');
-
-        let cuadroEscrutadas = document.getElementById('mesas-escrutadas');
-        let cuadroEscrutadasTexto = document.getElementById('mesas-escrutadas-texto');
-        cuadroEscrutadasTexto.textContent = "Mesas escrutadas " + resultados.estadoRecuento.mesasTotalizadas;
-
-        let cuadroElectores = document.getElementById('electores');
-        let cuadroElectoresTexto = document.getElementById('mesas-electores-texto');
-        cuadroElectoresTexto.textContent = "Electores " + resultados.estadoRecuento.cantidadElectores;
-
-        let cuadroParticipacion = document.getElementById('part-escrutado');
-        let cuadroParticipacionTexto = document.getElementById('part-escrutado-texto');
-        cuadroParticipacionTexto.textContent = "Participacion sobre escrutado " + resultados.estadoRecuento.participacionPorcentaje + "%";
-
-        // CREO TD PARA AGRUPACIONES
-        let tdAgrupaciones = document.createElement('td');
-        tdAgrupaciones.classList.add('td-body-agrupacion');
-        let tdEleccion = document.createElement('td');
-        tdEleccion.classList.add('td-body');
-
-        // Creo div grande que contiene todas las agrupaciones por fila
-        let divAgrupacionesFila = document.createElement('div');
-        divAgrupacionesFila.classList.add('fila-agrupacion-grande');
-
-        // Itero sobre las agrupaciones y las agrego al div grande
-        agrupaciones.forEach(agrupacion => {
-            // Crear div contenedor por fila
-            let divFila = document.createElement('div');
-            divFila.classList.add('agrupacion');
-
-            // Crear div para el nombre de la agrupación
-            let divNombreAgrupacion = document.createElement('div');
-            let nombreAgrupacion = document.createElement('b');
-            divNombreAgrupacion.classList.add('nombre-agrupacion');
-            nombreAgrupacion.textContent = agrupacion.nombreAgrupacion;
-            divNombreAgrupacion.appendChild(nombreAgrupacion);
-
-            // Creo div para los votos de la agrupación
-            let divVotosAgrupacion = document.createElement('div');
-            divVotosAgrupacion.classList.add('votos');
-            divVotosAgrupacion.innerHTML = `${agrupacion.votosPorcentaje}% <br> ${agrupacion.votos}votos`;
-
-            // Declaro variables dentro del bucle y actualizarlas
-            let anioEleccion = agrupacion.anioEleccion;
-            let eleccion = agrupacion.tipoEleccion;
-            let cargoSeleccionado = agrupacion.cargoSeleccionado;
-            let distritoSeleccionado = agrupacion.distritoSeleccionado;
-
-            // Agrego divs de nombre y votos al contenedor de fila 
-            divFila.appendChild(divNombreAgrupacion);
-            divFila.appendChild(divVotosAgrupacion); // Ahora ambos divs están en el mismo contenedor
-
-            // Agrego fila al div grande de agrupaciones
-            divAgrupacionesFila.appendChild(divFila);
-        });
-
-        // Obtengo el nombre de la provincia actual
-        var nombreProvincia = distritoSeleccionado.toLowerCase();
-
-        // Busco en el array la provincia correspondiente
-        var provinciaEncontrada = provinciasSVG.find(function (provincia) {
-            return provincia.provincia.toLowerCase() === nombreProvincia;
-        });
-        // Verifico si se encontró la provincia
-        if (provinciaEncontrada) {
-            // Agrego el fragmento SVG al contenido del <tdMapa>
-            tdMapa.innerHTML = provinciaEncontrada.svg;
+        if (info[1] == 1){
+            eleccion = "Paso";
         } else {
-            console.error('Provincia no encontrada:', nombreProvincia);
+            eleccion = "Generales";
         }
 
-        tdEleccion.classList.add('td-body');
-        tdEleccion.innerHTML = `<p class="texto-elecciones-chico">Elecciones ${anioEleccion} | ${eleccion}</p>
-          <p class="texto-path-chico">${anioEleccion} > ${eleccion} > ${cargoSeleccionado} > ${distritoSeleccionado}</p>`;
+        let nuevoTR = document.createElement('tr');
+        
+        let primerTD = document.createElement('td');
+        let segundoTD = document.createElement('td');
+        let tercerTD = document.createElement('td');
+        let cuartoTD = document.createElement('td');
+        cuartoTD.className = "datos-agrupacion";
 
-        tdDatosGenerales.innerHTML = `
-              <div class="datos">
-                  <div id="mesas-escrutadas">${cuadroEscrutadas.innerHTML}</div>
-                  <div id="electores"> ${cuadroElectores.innerHTML}</div>
-                  <div id="part-escrutado">${cuadroParticipacion.innerHTML} </div>
-              </div>`;
+        let divAgrupaciones = document.createElement('div');
+        divAgrupaciones.id = "div-agrupacion";
 
-        // Agrego div grande de agrupaciones a la celda
-        tdAgrupaciones.appendChild(divAgrupacionesFila);
-        // Agrego celdas a la fila
-        nuevoTr.appendChild(tdMapa);
-        nuevoTr.appendChild(tdEleccion);
-        nuevoTr.appendChild(tdDatosGenerales);
-        nuevoTr.appendChild(tdAgrupaciones);
+        let pTitulo = document.createElement('p');
+        let pSubTitulo = document.createElement('p');
 
-        // Agrego fila a la tabla
-        tabla.appendChild(nuevoTr);
-        console.log('===========================================================================================================================');
+        let mesasEscrutadasParrafo = document.createElement('p');
+        let electoresParrafo = document.createElement('p');
+        let participacionEscrutadoParrafo = document.createElement('p');
+
+        // TD PARA EL MAPA
+        for (i = 0; i < 25; i++) {
+            if (info[4] - 1 == i) {
+                console.log("EL DISTRITO ES: " + info[4]);
+                // Convierte la cadena SVG en un nodo DOM antes de adjuntarla
+                let div = document.createElement('div');
+                div.innerHTML = provinciasSVG[i].svg;
+
+                // AGREGO EL MAPA AL PRIMER TD
+                primerTD.appendChild(div.firstChild);
+            }
+        }
+        
+        // TD PARA EL TITULO Y SUBTITULO
+        pTitulo.className = "texto-elecciones-chico";
+        pTitulo.textContent = `Elecciones ${info[0]} | ${eleccion}`;
+        pSubTitulo.className = "texto-path-chico";
+        pSubTitulo.textContent = `${info[0]} > ${eleccion} > ${info[2]} > ${info[3]} > ${info[5]}`;
+        // AGREGO LOS TEXTOS AL SEGUNDO TD
+        segundoTD.appendChild(pTitulo);
+        segundoTD.appendChild(pSubTitulo);
+
+        // TD PARA LOS CUADROS
+        datosCuadros.className = "datos";
+
+        mesasEscrutadas.id = "mesas-escrutadas";
+        mesasEscrutadas.appendChild(mesasEscrutadasSVG);
+        mesasEscrutadasParrafo.className = "datos-elecciones";
+        mesasEscrutadasParrafo.textContent = `Mesas escrutadas ${resultados.estadoRecuento.mesasTotalizadas}`;
+        mesasEscrutadas.appendChild(mesasEscrutadasParrafo);
+        datosCuadros.appendChild(mesasEscrutadas);
+
+        electores.id = "electores";
+        electores.appendChild(electoresSVG);
+        electoresParrafo.className = "datos-elecciones";
+        electoresParrafo.textContent = `Electores ${resultados.estadoRecuento.cantidadElectores}`;
+        electores.appendChild(electoresParrafo);
+        datosCuadros.appendChild(electores);
+
+        participacionSobreEscrutado.id = "part-escrutado";
+        participacionSobreEscrutado.appendChild(participacionSobreEscrutadoSVG);
+        participacionEscrutadoParrafo.className = "datos-elecciones";
+        participacionEscrutadoParrafo.textContent = `Participación sobre escrutado ${resultados.estadoRecuento.participacionPorcentaje}%`;
+        participacionSobreEscrutado.appendChild(participacionEscrutadoParrafo);
+        datosCuadros.appendChild(participacionSobreEscrutado);
+        // AGREGO LOS CUADROS AL TERCER TD
+        tercerTD.appendChild(datosCuadros);
+
+        // TD PARA LA INFO DE LAS AGRUPACIONES
+        resultados.valoresTotalizadosPositivos.forEach(agrupacion => {
+            //ASI SE ACCEDE A LA INFORMACION DE CADA AGRUPACION
+            let divAgrup = document.createElement('div');
+            divAgrup.classList.add("agrupacion");
+            divAgrup.innerHTML = `
+            <div><b>${agrupacion.nombreAgrupacion}</b></div>
+            <div>${agrupacion.votosPorcentaje}% <br>${agrupacion.votos} votos</div>`;
+
+            divAgrupaciones.appendChild(divAgrup);
+        });
+
+        // AGREGO LAS AGRUPACIONES AL CUARTO TD
+        cuartoTD.appendChild(divAgrupaciones);
+
+        // AGREGO LOS TD AL TR
+        nuevoTR.appendChild(primerTD);
+        nuevoTR.appendChild(segundoTD);
+        nuevoTR.appendChild(tercerTD);
+        nuevoTR.appendChild(cuartoTD);
+        cuerpoTabla.appendChild(nuevoTR);
 
     } catch (error) {
-        console.log("ERROR: " + error);
-        console.log(resultados);
-        console.log("No se creó el informe porque el resultado está vacío");
+        console.log("ERROR: " + error)
+        //console.log(resultados)
+        console.log("No se creo el informe porque el resultado esta vacio")
     }
 }

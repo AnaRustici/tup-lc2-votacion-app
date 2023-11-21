@@ -232,7 +232,6 @@ async function consultarResultados() {
         let seccionProvincialId = seccionProvincial.value;
         let seccionId = selectSeccion.value;
 
-        let anioString = selectAnio.options[selectAnio.selectedIndex].innerText;
         let categoriaString = selectCargo.options[selectCargo.selectedIndex].innerText;
         let distritoString = selectDistrito.options[selectDistrito.selectedIndex].innerText;
         let seccionString = selectSeccion.options[selectSeccion.selectedIndex].innerText;
@@ -323,7 +322,7 @@ function agregarInforme() {
         let vCargoSeleccionado= categoriaString;
         let vDistritoSeleccionado= distritoString;
         let seccionSeleccionada= seccionString;
-        let nuevosDatos = `|${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${vSeccionId}|${vCircuitoId}|${vMesaId}|${vAnioSeleccionado}|${vCargoSeleccionado}|${vDistritoSeleccionado}|${seccionSeleccionada}`
+        let nuevosDatos = `${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${vSeccionId}|${vCircuitoId}|${vMesaId}|${vAnioSeleccionado}|${vCargoSeleccionado}|${vDistritoSeleccionado}|${seccionSeleccionada}`
         console.log( "CONSOLE LOG DE LOS DATOS DEL NUEVO INFORME: " + nuevosDatos)
 
     // Verificar si los nuevos datos ya existen en la lista
