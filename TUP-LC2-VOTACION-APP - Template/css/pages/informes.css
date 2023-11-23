@@ -81,7 +81,6 @@
     border: 0px;
 }
 
-
 #boton-inicio-menu {
     border-radius: 5px;
     background-color: var(--gris-claro);
@@ -100,27 +99,37 @@
     background-color: var(--textos);
 }
 
-
-
-
 #sec-titulo h2 {
     margin-left: 120px;
 }
 
 /*tabla*/
 .tabla-informes {
+    max-height: 325px;
     display: grid;
     border: 1px solid var(--borde-Grilla);
     border-radius: 15px;
-    width: 1100px;
+    width: 1150px;
     margin: 0px auto 50px auto;
     border-collapse: collapse;
     background-color: rgb(250, 250, 250);
     border-bottom: 1px solid var(--borde-inferior-Grilla);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.fila-agrupacion-grande{
+    max-height: 200px;
+
+    overflow-y: auto;
+}
+.fila-agrupacion{
+    padding: 0px 0px 30px;
+}
+.fila-agrupacion-grande div{
+    display: flex;
 }
 thead {
     color: var(--titulo-Grilla);
-    padding: 10px 20px;
     font-size: 14px;
     font-weight: bold;
     border-bottom: 1px solid var(--borde-inferior-Grilla);
@@ -129,23 +138,18 @@ thead tr {
     display: flex;
     justify-content: space-around;
 }
+tr {
+    border-bottom: 1px solid var(--borde-Grilla); /* Ajusta el color y grosor del borde según tus necesidades */
+}
 
 tbody:hover {
     background-color: rgb(250, 250, 250);
 }
 tbody {
     background-color: rgb(255, 255, 255);
-    padding: 15px 0px;
+    
     font-size: 12px;
-    max-height: 325px;
-    overflow-y: scroll;
 }
-
-tbody tr:first-child {
-    display: none;
-}
-
-
 
 .texto-elecciones-chico {
     font-size: 12px;
@@ -206,12 +210,6 @@ tbody tr:first-child {
     color: white;
 }
 
-.datos-elecciones {
-    font-size: 10px;
-    color: white;
-    text-align: center;
-}
-
 .datos-agrupacion {
     grid: 100px 100px;
     height: 325px;
@@ -219,12 +217,19 @@ tbody tr:first-child {
     font-size: 10px;
     color: var(--textos);
 }
-#div-agrupacion {
-    max-height: 250px;
-    overflow-y: scroll;
+
+.datos-generales{
+    color: #FFF;
 }
-#div-agrupacion div{
+
+.div-agrupacion div{
     display: flex;
+}
+.fila-agrupacion {
+    display: flex;
+    max-height: 200px;
+    overflow-y: auto;
+
 }
 
 .agrupacion div:first-child {
@@ -236,4 +241,32 @@ tbody tr:first-child {
 }
 .agrupacion {
     padding-bottom: 30px;
+    padding-right: 20px;
 }
+
+.td-body {
+    grid: 100px 100px;
+    max-height: 200px;
+    padding: 5px;
+    font-size: 10px;
+    color: var(--textos);
+    overflow: hidden;
+    max-width: 400px; 
+}
+
+
+.nombre-agrupacion{
+    padding: 0px 70px 0px 20px;
+   
+}
+
+.votos {
+    display: block;
+
+}
+
+.td-mapa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

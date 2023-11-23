@@ -67,6 +67,10 @@ nav div select {
     height: 30px;
 }
 
+.datos-elecciones{
+    color: #FFF;
+}
+
 .seleccionable {
     background-color: var(--fondo-Menu);
     color: var(--celeste);

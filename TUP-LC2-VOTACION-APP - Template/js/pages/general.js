@@ -11,8 +11,8 @@ let cartelAmarillo = document.getElementById('texto-amarillo');
 let cartelVerde = document.getElementById('texto-verde');
 let cartelrojo = document.getElementById('texto-rojo');
 let cargandoDatos = document.getElementById('cargando');
-let tituloPaso = document.getElementById('titulo-paso');
-let subtituloPaso = document.getElementById('subtitulo-paso');
+let tituloGenerales = document.getElementById('titulo-paso');
+let subtituloGenerales = document.getElementById('subtitulo-paso');
 let imagenMapa = document.getElementById('imagen-mapa');
 let mesasEscrutadas = document.getElementById('mesas-escrutadas-numero');
 let electores = document.getElementById('electores-numero');
@@ -230,8 +230,8 @@ async function consultarResultados() {
             const response = await fetch(url + parametros);
             if (response.ok) {
                 cartelVerde.style.display = 'block'
-                tituloPaso.innerHTML = `Elecciones ${anioEleccion} | Paso`
-                subtituloPaso.innerHTML = `${anioEleccion} > Paso > ${categoriaString} > ${distritoString} > ${seccionString}`
+                tituloGenerales.innerHTML = `Elecciones ${anioEleccion} | Generales`
+                subtituloGenerales.innerHTML = `${anioEleccion} > Generales > ${categoriaString} > ${distritoString} > ${seccionString}`
                 resultados = await response.json();
                 ocultarCarga();
                 console.log("RESULTADOS "+ resultados)
@@ -300,7 +300,7 @@ function agregarInforme() {
         let vCargoSeleccionado= categoriaString;
         let vDistritoSeleccionado= distritoString;
         let seccionSeleccionada= seccionString;
-        let nuevosDatos = `|${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${vSeccionId}|${vCircuitoId}|${vMesaId}|${vAnioSeleccionado}|${vCargoSeleccionado}|${vDistritoSeleccionado}|${seccionSeleccionada}`
+        let nuevosDatos = `${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${vSeccionId}|${vCircuitoId}|${vMesaId}|${vAnioSeleccionado}|${vCargoSeleccionado}|${vDistritoSeleccionado}|${seccionSeleccionada}`
         console.log( "CONSOLE LOG DE LOS DATOS DEL NUEVO INFORME: " + nuevosDatos)
 
     // Verificar si los nuevos datos ya existen en la lista
