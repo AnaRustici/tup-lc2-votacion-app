@@ -19,10 +19,15 @@ let electores = document.getElementById('electores-numero');
 let participacionSobreEscrutado = document.getElementById('participacion-sobre-escrutado');
 let svgMapa = document.getElementById('svg-mapa');
 let svgTituloMapa = document.getElementById("titulo-svg");
+let divAgrupaciones = document.getElementById("div-agrupaciones");
 let anioString = "";
 let categoriaString = "";
 let distritoString = "";
 let seccionString = "";
+let auxiliar = 0;
+
+let cuadroBarrasPartidos = document.getElementById('mostrar-grafica');
+cuadroBarrasPartidos.style.display = 'none';
 
 //arreglo constante con los mapas e ID para buscarlo despues
 const provinciasSVG = [

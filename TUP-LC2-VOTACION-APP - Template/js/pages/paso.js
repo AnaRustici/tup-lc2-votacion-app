@@ -28,14 +28,7 @@ let auxiliar = 0;
 let cuadroBarrasPartidos = document.getElementById('mostrar-grafica');
 cuadroBarrasPartidos.style.display = 'none';
 
-//variables para crear elementos
-/*
-let divTituloAgrupaciones = `<div class="nombre-agrupacion">${nombreAgrupacion[i]}<hr></div>`
-let divTituloLista = `<div class="div-agrupaciones"><div><b>${nombreLista[i]}</b></div>`  //crear estas variables internas, dentro de la variable
-let divVotosyPorcentaje = `<div>${porcentajeAgrupaciones[i]}<br>${votosAgrupaciones[i]}votos</div>`
-let BarraTrasera = `<div class="progress" style="background: var(${coloresGraficaLivianos[i]});"></div>`
-let BarraDelantera = `<div class="progress-bar" style="width:75%; background: var(${coloresGraficaPlenos[i]});"><span class="progress-bar-text">${porcentajeListas[i]}</span></div>`
-*/
+
 let coloresGraficaPlenos = [
     getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo'),
     getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste'),
@@ -133,8 +126,9 @@ function comboCargo() {
             console.log(datosAPI)
 
             selectCargo.innerHTML = '';
-
+            
             datosAPI.forEach((eleccion) => {
+                
                 if (eleccion.IdEleccion === tipoEleccion) {
                     eleccion.Cargos.forEach(cargo => {
                         const option = document.createElement('option');
@@ -155,15 +149,15 @@ function comboDistrito() {
     try {
         console.log(datosAPI);
         datosAPI.forEach((eleccion) => {
-            if (eleccion.IdEleccion == tipoEleccion) {
+            if (eleccion.IdEleccion === tipoEleccion) {
                 eleccion.Cargos.forEach(cargo => {  
                     if (cargo.IdCargo == selectCargo.value) {
                         console.log(cargo.Distritos);
-                        primeraOpcion.value = '0';
+                        /*primeraOpcion.value = '0';
                         primeraOpcion.text = 'Distrito';
                         primeraOpcion.disabled = true;
                         primeraOpcion.selected = true;
-                        selectDistrito.appendChild(primeraOpcion);
+                        selectDistrito.appendChild(primeraOpcion);*/
                         cargo.Distritos.forEach(distrito => {
                             const option = document.createElement('option');
                             option.value = distrito.IdDistrito;
@@ -189,12 +183,11 @@ function comboSeccion() {
                         cargo.Distritos.forEach(distrito => {
                             if (distrito.IdDistrito == selectDistrito.value) {
                                 distrito.SeccionesProvinciales.forEach(secProvincial => {
-                                    seccionProvincial.value = secProvincial.IDSeccionProvincial;
-                                    primeraOpcion.value = '0';
+                                    /*primeraOpcion.value = '0';
                                     primeraOpcion.text = 'Sección';
                                     primeraOpcion.disabled = true;
                                     primeraOpcion.selected = true;
-                                    selectSeccion.appendChild(primeraOpcion);
+                                    selectSeccion.appendChild(primeraOpcion);*/
                                     secProvincial.Secciones.forEach(seccion => {
                                         const option = document.createElement('option');
                                         option.value = seccion.IdSeccion;
