@@ -183,6 +183,11 @@ main {
     padding-right: 40px;
 }
 
+/*agregar*/
+#img-mapa{
+    margin: 40px 30px 30px 50px;
+}
+
 .cuadros-detalle {
     display: flex;
     justify-content: center;

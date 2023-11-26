@@ -210,6 +210,11 @@ main {
     align-items: center;
 }
 
+/*agregar*/
+#img-mapa{
+    margin: 40px 30px 30px 50px;
+}
+
 #agregar-informe {
     background-color: var(--gris-claro);
     color: white;
