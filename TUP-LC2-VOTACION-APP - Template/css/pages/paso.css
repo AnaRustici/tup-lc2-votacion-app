@@ -32,6 +32,21 @@
     --mensaje-usuario-rojo: #dc3545;
 }
 
+/*agregar*/
+#cartel-main-amarillo{
+    display: flex;
+    width: 700px;
+    height: 250px;
+    background-color: yellow;
+    justify-content: center;
+    align-items: center;
+    border-radius:10px;
+    color: #727272;
+    font-size: 20px;
+    margin: 100px 100px 120px 290px;
+    
+}
+
 main {
     margin-bottom: 50px;
 }

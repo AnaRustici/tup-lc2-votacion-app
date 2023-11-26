@@ -29,6 +29,11 @@ let auxiliar = 0;
 let cuadroBarrasPartidos = document.getElementById('mostrar-grafica');
 cuadroBarrasPartidos.style.display = 'none';
 
+
+//agregar
+let seccionContenido = document.getElementById("sec-contenido");
+let cartelAmarilloMain = document.getElementById("cartel-main-amarillo");
+
 //arreglo constante con los mapas e ID para buscarlo despues
 const provinciasSVG = [
     { provincia: 'Ciudad Autónoma de Buenos Aires', id: '1', svg: '<svg><path class="leaflet-interactive" stroke="#18a0fb" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#18a0fb" fill-opacity="1" fill-rule="evenodd" d="M182 61L179 56L176 58L178 56L176 53L173 55L169 47L168 48L164 45L157 43L158 41L155 41L154 36L149 32L148 33L143 29L142 30L145 32L140 29L138 32L137 30L140 29L139 26L137 28L136 23L133 22L130 27L103 41L81 99L82 134L131 179L159 140L168 137L171 139L174 138L181 141L186 137L195 136L200 130L207 125L205 120L210 118L210 112L205 107L210 110L213 114L215 113L215 110L217 110L218 112L219 111L217 109L221 111L224 109L220 106L222 106L221 102L218 102L216 104L215 103L217 102L212 102L220 101L219 95L216 92L214 86L208 81L200 83L199 80L201 79L202 81L200 77L206 75L203 75L203 73L206 73L201 71L205 70L199 69L198 68L202 68L200 66L195 67L194 66L198 65L188 62L192 62L190 60L183 59L189 64L187 65z"></path></svg>' },
@@ -59,6 +64,20 @@ const provinciasSVG = [
 
 let datosAPI = [];
 let datosCargos = [];
+
+//agregar
+function ocultarMain(){
+    seccionContenido.style.display = "none";
+    cartelAmarilloMain.style.display = "flex";
+}
+//agregar
+function mostrarMain(){
+    cartelAmarilloMain.style.display = "none";
+    seccionContenido.style.display = "block";
+}
+
+//agregar
+ocultarMain();
 
 //AGREGAR PARA QUE SIRVE ESTA FUNCION
 var primeraOpcion = document.createElement('option');
@@ -249,6 +268,9 @@ async function consultarResultados() {
                         svgMapa.innerHTML = provinciasSVG[i-1].svg;
                         svgTituloMapa.innerHTML = provinciasSVG[i-1].provincia;
                         //modificamos el html svg con el arreglo de objetos posicion i-1 porque cuando llega ya es el siguiente
+                        
+                        //agregar            
+                mostrarMain();
                     }
                 }
 
