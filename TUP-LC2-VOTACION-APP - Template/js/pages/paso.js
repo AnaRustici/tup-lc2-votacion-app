@@ -79,6 +79,8 @@ let datosAPI = [];
 let datosCargos = [];
 var objetosPartidos = [];
 
+
+
 var primeraOpcion = document.createElement('option');
 document.addEventListener('DOMContentLoaded', function () {
     //Se llama a la función cuando se carga la página

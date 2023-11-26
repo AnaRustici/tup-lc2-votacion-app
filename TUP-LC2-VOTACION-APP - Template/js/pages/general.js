@@ -148,11 +148,11 @@ function comboDistrito() {
                 eleccion.Cargos.forEach(cargo => {
                     if (cargo.IdCargo == selectCargo.value) {
                         console.log(cargo.Distritos);
-                        primeraOpcion.value = '0';
+                        /*primeraOpcion.value = '0';
                         primeraOpcion.text = 'Distrito';
                         primeraOpcion.disabled = true;
                         primeraOpcion.selected = true;
-                        selectDistrito.appendChild(primeraOpcion);
+                        selectDistrito.appendChild(primeraOpcion);*/
                         cargo.Distritos.forEach(distrito => {
                             const option = document.createElement('option');
                             option.value = distrito.IdDistrito;
@@ -179,12 +179,12 @@ function comboSeccion() {
                         cargo.Distritos.forEach(distrito => {
                             if (distrito.IdDistrito == selectDistrito.value) {
                                 distrito.SeccionesProvinciales.forEach(secProvincial => {
-                                    seccionProvincial.value = secProvincial.IDSeccionProvincial;
+                                    /*seccionProvincial.value = secProvincial.IDSeccionProvincial;
                                     primeraOpcion.value = '0';
                                     primeraOpcion.text = 'Sección';
                                     primeraOpcion.disabled = true;
                                     primeraOpcion.selected = true;
-                                    selectSeccion.appendChild(primeraOpcion);
+                                    selectSeccion.appendChild(primeraOpcion);*/
                                     secProvincial.Secciones.forEach(seccion => {
                                         const option = document.createElement('option');
                                         option.value = seccion.IdSeccion;
