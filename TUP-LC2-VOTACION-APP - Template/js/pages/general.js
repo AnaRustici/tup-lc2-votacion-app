@@ -61,6 +61,24 @@ const provinciasSVG = [
     { provincia: 'Tucumán', id: '23', svg: '<svg><path class="leaflet-interactive" stroke="#18a0fb" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#18a0fb" fill-opacity="1" fill-rule="evenodd" d="M165 127L168 126L165 123L167 115L169 116L172 114L177 102L179 89L181 90L181 87L184 88L185 81L189 82L189 58L182 59L176 57L169 61L168 59L155 57L152 51L147 53L136 53L134 65L117 58L117 67L114 68L114 76L115 78L118 78L128 85L126 91L128 93L115 110L122 114L122 123L125 132L129 137L129 141L130 142L131 138L133 138L135 144L140 149L142 149L144 145L150 141L158 146L160 142L163 144L164 143L166 137L169 137L165 128z"></path></svg>' },
     { provincia: 'Tierra del Fuego, Antártida e Islas del Atlántico Sur', id: '24', svg: '<svg><path class="leaflet-interactive" stroke="#18a0fb" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#18a0fb" fill-opacity="1" fill-rule="evenodd" d="M166 125L160 121L154 114L139 104L136 98L129 92L122 78L120 79L114 76L114 73L118 67L120 67L121 69L121 67L113 54L113 140L114 138L118 138L120 136L132 139L141 138L161 146L163 143L172 143L173 140L177 140L180 142L185 139L185 141L188 140L188 138L190 137L189 135L192 130L181 130L170 128L167 126z"></path></svg>' }
 ];
+let coloresGraficaPlenos = [
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-bordo'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-lila'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-lila2'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-verde'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-gris')
+];
+let coloresGraficaLivianos = [
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-bordo-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-lila-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-lila2-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-verde-claro'),
+    getComputedStyle(document.documentElement).getPropertyValue('--grafica-gris-claro')
+];
 
 let datosAPI = [];
 let datosCargos = [];
@@ -80,7 +98,6 @@ function mostrarMain(){
 ocultarMain();
 
 //AGREGAR PARA QUE SIRVE ESTA FUNCION
-var primeraOpcion = document.createElement('option');
 document.addEventListener('DOMContentLoaded', function () {
     //Se llama a la función cuando se carga la página
     consultarComboAnio();
@@ -140,6 +157,13 @@ function comboCargo() {
 
             selectCargo.innerHTML = '';
 
+            var primeraOpcion = document.createElement('option');
+            primeraOpcion.value = '0';
+            primeraOpcion.text = 'Cargo';
+            primeraOpcion.disabled = true;
+            primeraOpcion.selected = true;
+            selectCargo.appendChild(primeraOpcion);
+
             datosAPI.forEach((eleccion) => {
                 if (eleccion.IdEleccion === tipoEleccionn) {
                     eleccion.Cargos.forEach(cargo => {
@@ -160,6 +184,13 @@ function comboCargo() {
 //funcion para consultar la provincia, se guarda en variable y se asigna al option creado
 function comboDistrito() {
     selectDistrito.innerHTML = '';
+
+    var primeraOpcion = document.createElement('option');
+    primeraOpcion.value = '0';
+    primeraOpcion.text = 'Distrito';
+    primeraOpcion.disabled = true;
+    primeraOpcion.selected = true;
+    selectDistrito.appendChild(primeraOpcion);
     try {
         console.log(datosAPI);
         datosAPI.forEach((eleccion) => {
@@ -167,11 +198,6 @@ function comboDistrito() {
                 eleccion.Cargos.forEach(cargo => {
                     if (cargo.IdCargo == selectCargo.value) {
                         console.log(cargo.Distritos);
-                        /*primeraOpcion.value = '0';
-                        primeraOpcion.text = 'Distrito';
-                        primeraOpcion.disabled = true;
-                        primeraOpcion.selected = true;
-                        selectDistrito.appendChild(primeraOpcion);*/
                         cargo.Distritos.forEach(distrito => {
                             const option = document.createElement('option');
                             option.value = distrito.IdDistrito;
@@ -190,6 +216,13 @@ function comboDistrito() {
 //funcion para consultar y guardar el departamento de la provincia, crear y guardar el valor en el option creado
 function comboSeccion() {
     selectSeccion.innerHTML = '';
+
+    var primeraOpcion = document.createElement('option');
+    primeraOpcion.value = '0';
+    primeraOpcion.text = 'Sección';
+    primeraOpcion.disabled = true;
+    primeraOpcion.selected = true;
+    selectSeccion.appendChild(primeraOpcion);
     try {
         datosAPI.forEach((eleccion) => {
             if (eleccion.IdEleccion == tipoEleccionn) {
@@ -198,12 +231,7 @@ function comboSeccion() {
                         cargo.Distritos.forEach(distrito => {
                             if (distrito.IdDistrito == selectDistrito.value) {
                                 distrito.SeccionesProvinciales.forEach(secProvincial => {
-                                    /*seccionProvincial.value = secProvincial.IDSeccionProvincial;
-                                    primeraOpcion.value = '0';
-                                    primeraOpcion.text = 'Sección';
-                                    primeraOpcion.disabled = true;
-                                    primeraOpcion.selected = true;
-                                    selectSeccion.appendChild(primeraOpcion);*/
+                                    /*seccionProvincial.value = secProvincial.IDSeccionProvincial;*/
                                     secProvincial.Secciones.forEach(seccion => {
                                         const option = document.createElement('option');
                                         option.value = seccion.IdSeccion;
@@ -258,10 +286,13 @@ async function consultarResultados() {
                 subtituloGenerales.innerHTML = `${anioEleccion} > Generales > ${categoriaString} > ${distritoString} > ${seccionString}`
                 resultados = await response.json();
                 ocultarCarga();
-                console.log("RESULTADOS "+ resultados)
+                console.log(resultados)
                 mesasEscrutadas.innerHTML = `Mesas escrutadas ${resultados.estadoRecuento.mesasTotalizadas}`;
                 electores.innerHTML = `Electores ${resultados.estadoRecuento.cantidadElectores}`;
                 participacionSobreEscrutado.innerHTML = `Participacion sobre escrutado ${resultados.estadoRecuento.participacionPorcentaje}%`;
+                
+                agregaCuadrosAgrupaciones();
+
                 for(i=0 ; i<25 ; i++){
                     if(distritoId == i){
                         
@@ -270,9 +301,13 @@ async function consultarResultados() {
                         //modificamos el html svg con el arreglo de objetos posicion i-1 porque cuando llega ya es el siguiente
                         
                         //agregar            
-                mostrarMain();
+                
                     }
                 }
+
+                agregarResumenVotos();
+
+                mostrarMain();
 
             } else {    
                 ocultarCarteles();  
@@ -344,4 +379,60 @@ function agregarInforme() {
         cartelAmarillo.innerHTML='<i class="fa fa-exclamation"> </i>Los datos ya están en la lista de informes, no se han agregado.'
         cartelAmarillo.style.display = "block"
     }
+}
+
+function agregaCuadrosAgrupaciones() {
+    let cuadroAgrupaciones = document.getElementsByClassName('info-agrupaciones')[0];
+    let nuevoDiv = document.createElement('div');
+    cuadroAgrupaciones.innerHTML = '';
+    
+    resultados.valoresTotalizadosPositivos.forEach((agrup, indice) => {
+        let divPartido = document.createElement('div');
+        let colorPleno = coloresGraficaPlenos[indice % coloresGraficaPlenos.length];
+        let colorLiviano = coloresGraficaLivianos[indice % coloresGraficaLivianos.length];
+
+        divPartido.innerHTML = `<div class="div-agrupaciones">
+        <div><b>${agrup.nombreAgrupacion}</b></div>
+        <div>${agrup.votosPorcentaje}% <br> ${agrup.votos} votos</div>
+        </div>`;
+
+        let divBarra = document.createElement('div');
+        divBarra.innerHTML = `<div class="progress" style="background: ${colorLiviano};">
+        <div class="progress-bar" style="width:${agrup.votosPorcentaje}%; background: ${colorPleno};">
+            <span class="progress-bar-text">${agrup.votosPorcentaje}%</span>
+        </div>
+        </div>`;
+        
+        let elementoHR = document.createElement('hr');
+
+        nuevoDiv.appendChild(divPartido);
+        nuevoDiv.appendChild(divBarra);
+        nuevoDiv.appendChild(elementoHR);
+    
+    });
+    cuadroAgrupaciones.appendChild(nuevoDiv);
+}
+
+function agregarResumenVotos() {
+    let cuadroBarras = document.getElementsByClassName('grid')[0];
+    cuadroBarras.innerHTML = '';
+
+    resultados.valoresTotalizadosPositivos.slice(0, 7).forEach((agrup, indice) => {
+        let porcentajeVotos = agrup.votosPorcentaje;  
+        let colorBarra = coloresGraficaPlenos[indice];  
+        let tituloPartido = agrup.nombreAgrupacion;
+
+        let barra = document.createElement('div');
+        barra.className = 'bar';
+        barra.innerHTML = `
+            <div class="bar" style="--bar-value: ${porcentajeVotos}%; --bar-color: ${colorBarra};"
+                data-name="${tituloPartido}" title="Partido ${tituloPartido} ${porcentajeVotos}%">
+            </div>
+        `;
+
+        cuadroBarras.appendChild(barra);
+
+    })
+    
+    cuadroBarrasPartidos.style.display = 'block';
 }

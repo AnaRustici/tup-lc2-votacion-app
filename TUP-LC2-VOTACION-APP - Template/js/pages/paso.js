@@ -146,6 +146,13 @@ function comboCargo() {
             console.log(datosAPI)
 
             selectCargo.innerHTML = '';
+
+            var primeraOpcion = document.createElement('option');
+            primeraOpcion.value = '0';
+            primeraOpcion.text = 'Cargo';
+            primeraOpcion.disabled = true;
+            primeraOpcion.selected = true;
+            selectCargo.appendChild(primeraOpcion);
             
             datosAPI.forEach((eleccion) => {
                 
@@ -166,6 +173,13 @@ function comboCargo() {
 }
 function comboDistrito() {
     selectDistrito.innerHTML = '';
+
+    var primeraOpcion = document.createElement('option');
+    primeraOpcion.value = '0';
+    primeraOpcion.text = 'Distrito';
+    primeraOpcion.disabled = true;
+    primeraOpcion.selected = true;
+    selectDistrito.appendChild(primeraOpcion);
     try {
         console.log(datosAPI);
         datosAPI.forEach((eleccion) => {
@@ -173,11 +187,6 @@ function comboDistrito() {
                 eleccion.Cargos.forEach(cargo => {  
                     if (cargo.IdCargo == selectCargo.value) {
                         console.log(cargo.Distritos);
-                        /*primeraOpcion.value = '0';
-                        primeraOpcion.text = 'Distrito';
-                        primeraOpcion.disabled = true;
-                        primeraOpcion.selected = true;
-                        selectDistrito.appendChild(primeraOpcion);*/
                         cargo.Distritos.forEach(distrito => {
                             const option = document.createElement('option');
                             option.value = distrito.IdDistrito;
@@ -195,6 +204,13 @@ function comboDistrito() {
 }
 function comboSeccion() {
     selectSeccion.innerHTML = '';
+
+    var primeraOpcion = document.createElement('option');
+    primeraOpcion.value = '0';
+    primeraOpcion.text = 'Sección';
+    primeraOpcion.disabled = true;
+    primeraOpcion.selected = true;
+    selectSeccion.appendChild(primeraOpcion);
     try {
         datosAPI.forEach((eleccion) => {
             if (eleccion.IdEleccion == tipoEleccion) {
@@ -203,11 +219,6 @@ function comboSeccion() {
                         cargo.Distritos.forEach(distrito => {
                             if (distrito.IdDistrito == selectDistrito.value) {
                                 distrito.SeccionesProvinciales.forEach(secProvincial => {
-                                    /*primeraOpcion.value = '0';
-                                    primeraOpcion.text = 'Sección';
-                                    primeraOpcion.disabled = true;
-                                    primeraOpcion.selected = true;
-                                    selectSeccion.appendChild(primeraOpcion);*/
                                     secProvincial.Secciones.forEach(seccion => {
                                         const option = document.createElement('option');
                                         option.value = seccion.IdSeccion;

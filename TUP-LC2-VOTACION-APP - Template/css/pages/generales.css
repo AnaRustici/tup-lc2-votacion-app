@@ -232,16 +232,12 @@ main {
     justify-content: space-between;
 }
 .div-agrupaciones div {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--textos);
     padding: 5px;
     text-transform: uppercase;
 }
 
-.nombre-agrupacion {
-    font-size: 12px;
-    font-weight: bold;
-}
 
 #mapa {
     width: 30%;
