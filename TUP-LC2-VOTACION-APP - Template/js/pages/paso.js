@@ -104,6 +104,8 @@ document.addEventListener('DOMContentLoaded', function () {
     //Se llama a la función cuando se carga la página
     consultarComboAnio();
 });
+
+
 function ocultarCarteles(){
     cartelVerde.style.display = 'none';
     cartelAmarillo.style.display = 'none';
@@ -113,7 +115,7 @@ function ocultarCarga(){
     cargandoDatos.style.visibility = 'hidden';
 }
 ocultarCarteles();
-ocultarCarga();
+ocultarCarga(); 
 
 async function consultarComboAnio(){
     try {
@@ -310,7 +312,10 @@ async function consultarResultados() {
     } else {
         ocultarCarteles();
         ocultarCarga();
+        cartelAmarilloMain.style.visibility = "hidden"
+        cartelAmarillo.innerHTML='<i class="fa fa-exclamation"></i>Los campos deben estar llenos para agregar el informe.'
         cartelAmarillo.style.display = 'block'
+        
     }
     
 }

@@ -322,7 +322,11 @@ async function consultarResultados() {
         }
     } else {
         ocultarCarteles();
+        ocultarCarga();
+        cartelAmarilloMain.style.visibility = "hidden"
+        cartelAmarillo.innerHTML='<i class="fa fa-exclamation"></i>Los campos deben estar llenos para agregar el informe.'
         cartelAmarillo.style.display = 'block'
+        
     }
     
 }
